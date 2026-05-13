@@ -10,6 +10,11 @@
 cd "$SLURM_SUBMIT_DIR"
 
 echo "Starting Foffano test (formula-enrichment=true)..."
-pixi run test-foffano-enrichment-true
+pixi run python scripts/process-pdf.py \
+  'assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf' \
+  --out runs/slurm-foffano-true \
+  --formula-enrichment true \
+  --code-enrichment false \
+  --ocr false
 
 echo "Formula enrichment test complete"

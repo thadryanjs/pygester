@@ -18,52 +18,6 @@ watch = { cmd = [
     "--include='*.json'", "--include='*.ipynb'", "--include='*.sh'", "--exclude='*'", "./", "/mnt/Workspace/Pygester"
 ] }
 
-# Foffano
-test-foffano = """
-python scripts/process-pdf.py \
-  'assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf' \
-  --out runs/foffano-run
-"""
-
-test-foffano-enrichment-true = """
-python scripts/process-pdf.py \
-  'assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf' \
-  --out runs/foffano-true \
-  --formula-enrichment true
-"""
-
-test-foffano-enrichment-false = """
-python scripts/process-pdf.py \
-  'assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf' \
-  --out runs/foffano-false \
-  --formula-enrichment false
-"""
-
-# Cortes
-test-cortes = """
-python scripts/process-pdf.py \
-  'assets/Cortes-Gomez et al. - 2025 - Utility-Directed Conformal Prediction A Decision-Aware Framework for Actionable Uncertainty Quantif.pdf' \
-  --out runs/cortes-run
-"""
-
-test-cortes-enrichment-true = """
-python scripts/process-pdf.py \
-  'assets/Cortes-Gomez et al. - 2025 - Utility-Directed Conformal Prediction A Decision-Aware Framework for Actionable Uncertainty Quantif.pdf' \
-  --out runs/cortes-true \
-  --formula-enrichment true
-"""
-
-test-cortes-enrichment-false = """
-python scripts/process-pdf.py \
-  'assets/Cortes-Gomez et al. - 2025 - Utility-Directed Conformal Prediction A Decision-Aware Framework for Actionable Uncertainty Quantif.pdf' \
-  --out runs/cortes-false \
-  --formula-enrichment false
-"""
-
-# A/B comparison
-ab-foffano = { depends-on = ["test-foffano-enrichment-false", "test-foffano-enrichment-true"] }
-ab-cortes = { depends-on = ["test-cortes-enrichment-false", "test-cortes-enrichment-true"] }
-
 # Cleanup
 clean = "rm -rf run run-foffano run-cortes runs"
 
