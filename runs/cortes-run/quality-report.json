@@ -1,16 +1,16 @@
 {
   "schema_version": "1",
-  "status": "warn",
+  "status": "ok",
   "gates": {
     "canonical_non_empty": true,
-    "has_references_section": false,
+    "has_references_section": true,
     "raster_page_count_ok": true,
     "paper_md_exists": true,
     "context_packet_valid": true
   },
   "section_count": 25,
-  "figure_count": 0,
-  "table_count": 0,
-  "equation_count": 0,
-  "reference_count": 0
+  "figure_count": 8,
+  "table_count": 14,
+  "equation_count": 14,
+  "reference_count": 10
 }

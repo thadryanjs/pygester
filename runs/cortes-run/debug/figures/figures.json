@@ -1,1 +1,98 @@
-[]
+[
+  {
+    "id": "fig-001",
+    "page": 3,
+    "bbox": [
+      84.47087097167969,
+      454.1968994140625,
+      526.5269165039062,
+      615.0404052734375
+    ],
+    "caption": "Figure 1: Illustration of how proposed methods compare to the standard formulation of conformal prediction. The real-world example is taken from the Fitzpatrick dataset where the true disease is squamous cell carcinoma. The standard conformal prediction method results in a set of nine elements that span benign, malignant, and non-neoplastic diagnoses. Our method provides a formulation with a set of five elements within the malignant melanoma category.",
+    "image_path": "debug/figures/fig-001.png"
+  },
+  {
+    "id": "fig-002",
+    "page": 4,
+    "bbox": [
+      130.82638549804688,
+      160.06646728515625,
+      479.6237487792969,
+      254.0404052734375
+    ],
+    "caption": "Figure 2: Empirical statistical coverage on the iNaturalist dataset across various loss functions. The observed coverage is close to the expected preset value of α for all 10 trials per loss function. We see a similar behavior for all the other datasets.",
+    "image_path": "debug/figures/fig-002.png"
+  },
+  {
+    "id": "fig-003",
+    "page": 9,
+    "bbox": [
+      87.11613464355469,
+      577.2332916259766,
+      524.7493896484375,
+      704.1030197143555
+    ],
+    "caption": "Figure 3: Comparisons between different methods for the 1) separable loss case using the sum of penalties in each set as the loss metric (left), 2) non-separable loss case using maximum penalty in the set as the metric (middle), and 3) hierarchy coverage function loss case using the intersection of the set with each branch of the hierarchy as the metric (right). Numbers are the median-of-means across 10 different runs. See Appendix D for all datasets.",
+    "image_path": "debug/figures/fig-003.png"
+  },
+  {
+    "id": "fig-004",
+    "page": 10,
+    "bbox": [
+      87.64143371582031,
+      616.8493804931641,
+      525.3272705078125,
+      704.8162384033203
+    ],
+    "caption": "Figure 4: Measured impact of base model accuracy on downstream optimization values on all losses considered for the cleaned Fitzpatrick dataset. Shows median-of-means across 10 different runs for each configuration. Results demonstrate that all methods improve with a higher quality model-i.e., a model with higher accuracy.",
+    "image_path": "debug/figures/fig-004.png"
+  },
+  {
+    "id": "fig-005",
+    "page": 10,
+    "bbox": [
+      87.55342864990234,
+      487.4498596191406,
+      522.9013061523438,
+      558.6269836425781
+    ],
+    "caption": "Figure 5: Mean and standard deviation from the predicted softmax score for the true class as a function of predicted set size. The downward trend indicates that the predicted set size increases with the difficulty of the classification task for the model, highlighting the relationship between model uncertainty and set size.",
+    "image_path": "debug/figures/fig-005.png"
+  },
+  {
+    "id": "fig-006",
+    "page": 17,
+    "bbox": [
+      88.80509948730469,
+      455.81268310546875,
+      523.6779174804688,
+      702.8977127075195
+    ],
+    "caption": "Figure 6: Comparison of our methods when we use a Bayesian model as the source of ˆ p ( y | x ) . The plots show our methods work well for Bayesian and non-Bayesian approaches because they outperform the base methods in both cases.",
+    "image_path": "debug/figures/fig-006.png"
+  },
+  {
+    "id": "fig-007",
+    "page": 18,
+    "bbox": [
+      89.82176208496094,
+      304.27978515625,
+      522.77294921875,
+      687.0991897583008
+    ],
+    "caption": "Figure 7: Comparisons between different methods for the 1) separable loss case using the sum of penalties in each set as the loss metric (top), 2) non-separable loss case using maximum penalty in the set as the metric (middle), and 3) hierarchy coverage function loss case using the intersection of the set with each branch of the hierarchy as the metric (bottom). Numbers are the median-of-means across 10 different runs.",
+    "image_path": "debug/figures/fig-007.png"
+  },
+  {
+    "id": "fig-008",
+    "page": 21,
+    "bbox": [
+      87.85980987548828,
+      376.4312438964844,
+      522.8838500976562,
+      449.1821594238281
+    ],
+    "caption": "Figure 8: Trend of how the predicted softmax score of the true class decreases as the set size increases. The downward trend indicates the size of the sets grows as the model has more trouble classifying an image.",
+    "image_path": "debug/figures/fig-008.png"
+  }
+]

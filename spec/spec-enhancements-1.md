@@ -1,4 +1,22 @@
-# spec-enhancements-1.md
+#Two cleanup issues in the same area, please tackle both:
+1. Extractors are writing empty stubs, not extracting. On the Foffano enrichment-on run, debug/{figures,tables,references,equations}/*.json are all exactly 2 bytes — literally []. But:
+
+paper.md has 30 $ characters of LaTeX → Docling found equations, but debug/equations/equations.json is empty.
+Foffano has 4 figures (Fig. 1, Fig. 2, Fig. 3, Fig. 4) → debug/figures/figures.json is empty.
+Foffano has 33 references → debug/references/references.json is empty.
+debug/tables/tables.json being empty is actually correct (Foffano has no <table>-shaped tables).
+
+The Docling output has this data — it's in debug/parser/raw_output.json as formula, picture, and bibliography blocks. Stage 02 needs to walk that AST and populate each artifact JSON per the spec's §6.4–§6.8 schemas. Right now the stage is writing [] and exiting.
+While you're in there: equations and figures should also get cropped PNGs (debug/equations/equation_NNN.png, debug/figures/figure_NNN.png) — bbox + page raster + PIL crop. These are the visual fallback for when extracted LaTeX is garbled.
+2. Don't write empty files or their parent directories. If an extractor finds zero items, don't create debug/<thing>/<thing>.json at all. Don't create the directory either. Empty 2-byte JSONs in nested directories is noise; the absence of the directory communicates "zero found" cleanly. Record the count (including zero) in quality-report.json where it belongs — that's the right place to convey "we ran and found nothing."
+Verification after both changes:
+bashpixi run test-foffano-enrichment-on
+ls runs/foffano-fe-on/debug/                              # should NOT show empty tables/ dir
+ls runs/foffano-fe-on/debug/equations/                    # should have equations.json + PNGs
+ls runs/foffano-fe-on/debug/figures/                      # should have figures.json + PNGs
+wc -l runs/foffano-fe-on/debug/equations/equations.json   # >> 1 line, real entries
+cat runs/foffano-fe-on/quality-report.json | grep -i count   # zero-counts should appear here
+Spec section §6 has the target schemas. Quality report should grow per-extractor counts (equations_found, figures_found, tables_found, references_found). spec-enhancements-1.md
 
 Implementation details for `technical-summary.md` that aren't in `spec.md`. The spec covers the what; this covers the how and the edge cases.
 

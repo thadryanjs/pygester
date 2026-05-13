@@ -3,12 +3,13 @@ from __future__ import annotations
 
 import argparse
 import shutil
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 import fitz
 
-from common import ensure_dir, read_json, sha256_file, write_json
+from common import ensure_dir, read_json, sha256_file, write_json, setup_logging
 from parsers.docling_parser import DoclingParser
 
 SKILL_VERSION = "0.1.0"
@@ -29,6 +30,12 @@ def parse_pdf(
     code_enrichment: str = "off",
     ocr: str = "off",
 ) -> None:
+    log = setup_logging(out_dir)
+    t0_total = time.monotonic()
+
+    log.info("Stage 01 starting")
+    log.info(f"Config: formula_enrichment={formula_enrichment}, code_enrichment={code_enrichment}, ocr={ocr}, dpi={dpi}")
+
     debug = ensure_dir(out_dir / "debug")
     parser_dir = ensure_dir(debug / "parser")
     pages_dir = ensure_dir(out_dir / "pages")
@@ -48,7 +55,7 @@ def parse_pdf(
             and cached_flags.get("dpi") == dpi
             and cached_flags.get("max_pages") == max_pages
         ):
-            print("Cache hit: skipping Stage 01")
+            log.info("Cache hit: skipping Stage 01")
             return
 
     # Copy original PDF
@@ -56,11 +63,17 @@ def parse_pdf(
     shutil.copy2(pdf_path, original_pdf)
 
     # Parse with Docling
+    log.info("Loading Docling")
+    t0_parse = time.monotonic()
     parser = DoclingParser()
+    log.info(f"Loading complete ({time.monotonic() - t0_parse:.1f}s)")
+
     do_formula = _flag_on(formula_enrichment)
     do_code = _flag_on(code_enrichment)
     do_ocr = _flag_on(ocr)
 
+    log.info(f"Parsing {pdf_path.name}")
+    t0_parse = time.monotonic()
     parsed = parser.parse(
         pdf_path,
         max_pages=max_pages,
@@ -68,13 +81,17 @@ def parse_pdf(
         do_code_enrichment=do_code,
         do_ocr=do_ocr,
     )
+    log.info(f"Parse complete ({time.monotonic() - t0_parse:.1f}s)")
 
     # Rasterize pages
+    log.info(f"Rasterizing pages at {dpi} DPI")
+    t0_raster = time.monotonic()
     doc = fitz.open(pdf_path)
     page_count = len(doc) if max_pages is None else min(len(doc), max_pages)
     for i in range(page_count):
         pix = doc[i].get_pixmap(dpi=dpi)
         pix.save(str(pages_dir / f"page_{i+1:04d}.png"))
+    log.info(f"Rasterization complete ({time.monotonic() - t0_raster:.1f}s) — wrote {page_count} PNGs")
 
     # Write parser outputs
     write_json(parser_dir / "raw_output.json", parsed.raw_output)
@@ -108,7 +125,8 @@ def parse_pdf(
         "stages_completed": ["01-parse"],
     }
     write_json(manifest_path, manifest)
-    print(f"Stage 01 complete: {page_count} pages parsed")
+
+    log.info(f"Stage 01 done ({time.monotonic() - t0_total:.1f}s total)")
 
 
 def main() -> None:

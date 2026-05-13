@@ -3,7 +3,7 @@
 This directory contains the output of `digest-technical-paper` processing
 `assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf`.
 
-Tool version: `0.1.0` · Run at: `2026-05-13T14:08:08.226493+00:00` · Flags: `--formula-enrichment off --code-enrichment off --ocr off`
+Tool version: `0.1.0` · Run at: `2026-05-13T19:35:09.793516+00:00` · Flags: `--formula-enrichment off --code-enrichment off --ocr off`
 
 ## What's in here
 
@@ -30,10 +30,11 @@ something's wrong.
   per-stage timing.
 - `debug/parser/raw_output.{json,md}` — what Docling produced before our post-
   processing. Compare against `paper.md` to see what Stage 02 changed.
-- `debug/sections.json` — section tree (already in context-packet).
-- `debug/provenance.json` — char-offset → page/bbox map.
+- `debug/text/plaintext.txt` — canonical text without markdown formatting.
+- `debug/text/sections.json` — section tree (already in context-packet).
+- `debug/text/provenance.json` — char-offset → page/bbox map.
 - `debug/markdown/` — intermediate snapshots from Stage 02 post-processing.
-- `debug/{figures,tables,equations,references}.json` — structured artifacts
+- `debug/{figures,tables,equations,references}/` — structured artifacts
   that get rolled into `context-packet.json`.
 
 ## What was done to your paper
@@ -44,14 +45,14 @@ something's wrong.
 - OCR: `off` — skipped; PDF had usable text layer
 - Pages processed: 8
 - Sections detected: 22
-- Figures detected: 0
+- Figures detected: 4
 - Tables detected: 0
-- Equations detected: 0
+- Equations detected: 30
 
 ## Quality gates
 
 - **canonical_non_empty**: ✓
-- **has_references_section**: ✗
+- **has_references_section**: ✓
 - **raster_page_count_ok**: ✓
 - **paper_md_exists**: ✓
 - **context_packet_valid**: ✓

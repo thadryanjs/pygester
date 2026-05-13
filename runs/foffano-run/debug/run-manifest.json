@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "tool_version": "0.1.0",
-  "timestamp_utc": "2026-05-13T14:08:08.226493+00:00",
+  "timestamp_utc": "2026-05-13T19:35:09.793516+00:00",
   "input_pdf": "assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf",
   "input_pdf_sha256": "b85a8bca89098e3f38a955f9c7a2fdf6dc40302ebb8e624441843b91e6522b0e",
   "flags": {

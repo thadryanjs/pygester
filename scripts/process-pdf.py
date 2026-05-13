@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 
@@ -20,6 +21,7 @@ def main() -> None:
     p.add_argument("--cache", action="store_true")
     args = p.parse_args()
 
+    t0_total = time.monotonic()
     scripts_dir = Path(__file__).parent
 
     # Stage 01
@@ -56,7 +58,7 @@ def main() -> None:
         check=True,
     )
 
-    print("Pipeline complete")
+    print(f"[{time.strftime('%H:%M:%S')}] Total elapsed: {time.monotonic() - t0_total:.1f}s")
 
 
 if __name__ == "__main__":

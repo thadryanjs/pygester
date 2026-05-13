@@ -2,10 +2,10 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+import time
 from pathlib import Path
 
-from common import read_json, write_json
+from common import read_json, write_json, setup_logging, ensure_dir
 
 SKILL_VERSION = "0.1.0"
 
@@ -16,18 +16,30 @@ def build_context_packet(out_dir: Path) -> None:
     manifest = read_json(debug / "run-manifest.json")
     quality = read_json(out_dir / "quality-report.json")
 
-    # Load sidecars (nested per spec)
+    # Load sidecars (nested per spec, only if directories exist)
     sections = read_json(debug / "text" / "sections.json") if (debug / "text" / "sections.json").exists() else []
-    figures = read_json(debug / "figures" / "figures.json") if (debug / "figures" / "figures.json").exists() else []
-    tables = read_json(debug / "tables" / "tables.json") if (debug / "tables" / "tables.json").exists() else []
-    equations = read_json(debug / "equations" / "equations.json") if (debug / "equations" / "equations.json").exists() else []
-    references = read_json(debug / "references" / "references.json") if (debug / "references" / "references.json").exists() else []
+
+    figures = []
+    if (debug / "figures" / "figures.json").exists():
+        figures = read_json(debug / "figures" / "figures.json")
+
+    tables = []
+    if (debug / "tables" / "tables.json").exists():
+        tables = read_json(debug / "tables" / "tables.json")
+
+    equations = []
+    if (debug / "equations" / "equations.json").exists():
+        equations = read_json(debug / "equations" / "equations.json")
+
+    references = []
+    if (debug / "references" / "references.json").exists():
+        references = read_json(debug / "references" / "references.json")
 
     # Build packet
     packet = {
         "schema_version": "1",
         "paper_profile": {
-            "title": "Unknown",  # Would be extracted from first heading
+            "title": "Unknown",
             "page_count": manifest.get("page_count", 0),
             "input_pdf_sha256": manifest.get("input_pdf_sha256", ""),
             "parser": manifest.get("parser", {}),
@@ -50,7 +62,6 @@ def build_context_packet(out_dir: Path) -> None:
     }
 
     write_json(out_dir / "context-packet.json", packet)
-    print("Stage 03 complete: context-packet.json produced")
 
 
 def write_manifest_md(out_dir: Path) -> None:
@@ -102,10 +113,11 @@ something's wrong.
   per-stage timing.
 - `debug/parser/raw_output.{{json,md}}` — what Docling produced before our post-
   processing. Compare against `paper.md` to see what Stage 02 changed.
-- `debug/sections.json` — section tree (already in context-packet).
-- `debug/provenance.json` — char-offset → page/bbox map.
+- `debug/text/plaintext.txt` — canonical text without markdown formatting.
+- `debug/text/sections.json` — section tree (already in context-packet).
+- `debug/text/provenance.json` — char-offset → page/bbox map.
 - `debug/markdown/` — intermediate snapshots from Stage 02 post-processing.
-- `debug/{{figures,tables,equations,references}}.json` — structured artifacts
+- `debug/{{figures,tables,equations,references}}/` — structured artifacts
   that get rolled into `context-packet.json`.
 
 ## What was done to your paper
@@ -134,19 +146,31 @@ python scripts/03-packet.py --out <OUT_DIR>
 """
 
     (out_dir / "MANIFEST.md").write_text(md, encoding="utf-8")
-    print("Stage 03 complete: MANIFEST.md produced")
 
 
 def packet(out_dir: Path) -> None:
     """Run Stage 03."""
+    log = setup_logging(out_dir)
+    t0_total = time.monotonic()
+
+    log.info("Stage 03 starting")
+
     build_context_packet(out_dir)
+    cp_size = (out_dir / "context-packet.json").stat().st_size / 1024
+    log.info(f"Wrote context-packet.json ({cp_size:.1f} KB)")
+
     write_manifest_md(out_dir)
+    log.info("Wrote MANIFEST.md")
+
+    log.info("Wrote quality-report.json")
 
     # Update manifest
     debug = out_dir / "debug"
     manifest = read_json(debug / "run-manifest.json")
     manifest["stages_completed"] = ["01-parse", "02-clean", "03-packet"]
     write_json(debug / "run-manifest.json", manifest)
+
+    log.info(f"Stage 03 done ({time.monotonic() - t0_total:.1f}s total)")
 
 
 def main() -> None:

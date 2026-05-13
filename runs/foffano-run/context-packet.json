@@ -171,15 +171,786 @@
       "end_char": 42048
     }
   ],
-  "figures": [],
+  "figures": [
+    {
+      "id": "fig-001",
+      "page": 3,
+      "bbox": [
+        63.44810104370117,
+        633.9681091308594,
+        286.6262512207031,
+        743.5045852661133
+      ],
+      "caption": "Fig. 1. Conformal prediction for off-policy evaluation. The dataset D is collected using a behavior policy π b , which is then split into the training D tr and calibration D cal datasets. When evaluating a different policy π , there is a shift in the data distribution, and we need to learn a likelihood ratios ˆ w to compensate for this shift. The training data is used to learn estimates of the weights ˆ w and a model ˆ f used in the computation of the scores. The estimated weights are used as plug-in estimates to re-weight the cumulative distribution function of the scores ˆ F x,y n , which is then used to compute the conformalized intervals ˆ C n ( x ) .",
+      "image_path": "debug/figures/fig-001.png"
+    },
+    {
+      "id": "fig-002",
+      "page": 4,
+      "bbox": [
+        74.71016693115234,
+        628.1380157470703,
+        272.5783386230469,
+        743.2451705932617
+      ],
+      "caption": "Fig. 2. Symmetry problem. For the original confidence set with one single quantile, and score function s ( x, y ) = max( q α lo ( x ) -y, y -q α hi ( x )) , we obtain a set that is symmetric around its middle point ( q α lo ( x )+ q α hi ( x )) / 2 . We can break this symmetry by considering two different score quantiles, one for q α lo ( x ) -y and one for y -q α hi ( x ) , thus leading to a less conservative conformalized set.",
+      "image_path": "debug/figures/fig-002.png"
+    },
+    {
+      "id": "fig-003",
+      "page": 5,
+      "bbox": [
+        322.3157653808594,
+        90.10101318359375,
+        544.845947265625,
+        178.57537841796875
+      ],
+      "caption": null,
+      "image_path": "debug/figures/fig-003.png"
+    },
+    {
+      "id": "fig-004",
+      "page": 7,
+      "bbox": [
+        64.5315933227539,
+        457.1379699707031,
+        546.4150390625,
+        742.3537292480469
+      ],
+      "caption": "Fig. 4. Results for the inventory control problem for H = 20 , 40 , with target coverage of 90% . The policy π b is /epsilon1 b -greedy w.r.t. π /star (an optimal discounted policy with discount factor γ = 0 . 99 ), with /epsilon1 b = 0 . 4 . We evaluated a target policy π that is /epsilon1 -greedy w.r.t. π /star , with varying /epsilon1 . On the left: we show the boxplots of the average conformalized intervals for the various methods (whiskers indicate 95% confidence intervals for the minimum and the maximum). On the right we depict the coverage (bars indicate 95% confidence intervals).",
+      "image_path": "debug/figures/fig-004.png"
+    }
+  ],
   "tables": [],
-  "equations": [],
-  "references": [],
+  "equations": [
+    {
+      "id": "eq-001",
+      "page": 2,
+      "bbox": [
+        346.84171857810236,
+        288.58391448916,
+        558.6684656255821,
+        312.130519007739
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-001.png",
+      "number": null
+    },
+    {
+      "id": "eq-002",
+      "page": 2,
+      "bbox": [
+        351.89574591151137,
+        51.599914643000034,
+        519.2961210741462,
+        87.09534786300003
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-002.png",
+      "number": null
+    },
+    {
+      "id": "eq-003",
+      "page": 3,
+      "bbox": [
+        77.1942814605402,
+        359.78288909916,
+        275.5969858011886,
+        411.018344384
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-003.png",
+      "number": null
+    },
+    {
+      "id": "eq-004",
+      "page": 3,
+      "bbox": [
+        96.320999487934,
+        292.953681243914,
+        256.4703485496462,
+        339.353335839
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-004.png",
+      "number": null
+    },
+    {
+      "id": "eq-005",
+      "page": 3,
+      "bbox": [
+        53.999652431144,
+        95.36640722536481,
+        299.46664075082697,
+        165.03287366932477
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-005.png",
+      "number": null
+    },
+    {
+      "id": "eq-006",
+      "page": 3,
+      "bbox": [
+        62.951533810940795,
+        56.8781598458786,
+        299.46813089196,
+        86.85613169570001
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-006.png",
+      "number": null
+    },
+    {
+      "id": "eq-007",
+      "page": 3,
+      "bbox": [
+        375.67647152430936,
+        675.9634003056786,
+        558.6676201206392,
+        708.22999346175
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-007.png",
+      "number": null
+    },
+    {
+      "id": "eq-008",
+      "page": 3,
+      "bbox": [
+        360.82915324948874,
+        411.443671477914,
+        558.6672981251023,
+        441.42160594864
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-008.png",
+      "number": null
+    },
+    {
+      "id": "eq-009",
+      "page": 3,
+      "bbox": [
+        338.2639206681132,
+        356.378669035914,
+        532.9285244088579,
+        386.3566232046154
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-009.png",
+      "number": null
+    },
+    {
+      "id": "eq-010",
+      "page": 3,
+      "bbox": [
+        352.9647328651156,
+        229.05390045115996,
+        558.6678159456975,
+        246.33901102435004
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-010.png",
+      "number": null
+    },
+    {
+      "id": "eq-011",
+      "page": 4,
+      "bbox": [
+        54.0,
+        448.374579680914,
+        301.543152018955,
+        499.27462247261536
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-011.png",
+      "number": null
+    },
+    {
+      "id": "eq-012",
+      "page": 4,
+      "bbox": [
+        115.09392685926822,
+        293.345679534914,
+        299.467741789082,
+        323.32360318461537
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-012.png",
+      "number": null
+    },
+    {
+      "id": "eq-013",
+      "page": 4,
+      "bbox": [
+        101.6290393882972,
+        209.64466024791398,
+        251.162640008858,
+        239.62261441561532
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-013.png",
+      "number": null
+    },
+    {
+      "id": "eq-014",
+      "page": 4,
+      "bbox": [
+        79.0639084611132,
+        153.89514731685404,
+        273.728634271858,
+        183.87312998769994
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-014.png",
+      "number": null
+    },
+    {
+      "id": "eq-015",
+      "page": 4,
+      "bbox": [
+        376.72429750134023,
+        685.69188568116,
+        558.668073819139,
+        705.0173366839691
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-015.png",
+      "number": null
+    },
+    {
+      "id": "eq-016",
+      "page": 4,
+      "bbox": [
+        355.5218711277614,
+        460.551673186914,
+        515.6703607566461,
+        506.952334863
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-016.png",
+      "number": null
+    },
+    {
+      "id": "eq-017",
+      "page": 4,
+      "bbox": [
+        357.9499957345352,
+        306.878603471414,
+        558.6675311004783,
+        357.960360986
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-017.png",
+      "number": null
+    },
+    {
+      "id": "eq-018",
+      "page": 5,
+      "bbox": [
+        56.4587696192872,
+        593.4425241209999,
+        296.33760243592866,
+        720.575320703
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-018.png",
+      "number": null
+    },
+    {
+      "id": "eq-019",
+      "page": 5,
+      "bbox": [
+        58.463001251,
+        520.711646327914,
+        295.5246252906932,
+        568.510379296
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-019.png",
+      "number": null
+    },
+    {
+      "id": "eq-020",
+      "page": 5,
+      "bbox": [
+        53.69165044615144,
+        455.188666594914,
+        299.46799011735607,
+        503.4096057210632
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-020.png",
+      "number": null
+    },
+    {
+      "id": "eq-021",
+      "page": 5,
+      "bbox": [
+        65.81544570635381,
+        343.333655608914,
+        299.4681359329978,
+        391.930362207
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-021.png",
+      "number": null
+    },
+    {
+      "id": "eq-022",
+      "page": 5,
+      "bbox": [
+        102.0295657180145,
+        182.92490264916,
+        250.7615226023453,
+        203.34496843775003
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-022.png",
+      "number": null
+    },
+    {
+      "id": "eq-023",
+      "page": 5,
+      "bbox": [
+        361.69023007021565,
+        653.69890423616,
+        529.5250472701406,
+        711.5423635798155
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-023.png",
+      "number": null
+    },
+    {
+      "id": "eq-024",
+      "page": 5,
+      "bbox": [
+        318.1225327454514,
+        472.622657073914,
+        558.6675355686141,
+        523.8321143627
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-024.png",
+      "number": null
+    },
+    {
+      "id": "eq-025",
+      "page": 5,
+      "bbox": [
+        320.872985839,
+        397.01566244491397,
+        551.514522943858,
+        449.31525
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-025.png",
+      "number": null
+    },
+    {
+      "id": "eq-026",
+      "page": 6,
+      "bbox": [
+        103.79207731051659,
+        446.62190887416,
+        249.000637445858,
+        476.83259631547224
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-026.png",
+      "number": null
+    },
+    {
+      "id": "eq-027",
+      "page": 6,
+      "bbox": [
+        388.7683844396738,
+        477.06518887488664,
+        479.6545778082936,
+        502.08792765034997
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-027.png",
+      "number": null
+    },
+    {
+      "id": "eq-028",
+      "page": 6,
+      "bbox": [
+        393.439086914,
+        469.85890838616,
+        482.42418053990565,
+        487.14401895935
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-028.png",
+      "number": null
+    },
+    {
+      "id": "eq-029",
+      "page": 6,
+      "bbox": [
+        328.208667341637,
+        179.88666464191397,
+        542.9847064956244,
+        229.25102915770003
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-029.png",
+      "number": null
+    },
+    {
+      "id": "eq-030",
+      "page": 7,
+      "bbox": [
+        122.4599967295618,
+        319.099251758536,
+        299.4682471457271,
+        332.5065920554648
+      ],
+      "latex": "",
+      "image_path": "debug/equations/eq-030.png",
+      "number": null
+    }
+  ],
+  "references": [
+    {
+      "id": "ref-1",
+      "key": "1",
+      "raw": "Léon Bottou, Jonas Peters, Joaquin Quiñonero-Candela, Denis X Charles, D Max Chickering, Elon Portugaly, Dipankar Ray, Patrice Simard, and Ed Snelson. Counterfactual reasoning and learning systems: The example of computational advertising. Journal of Machine Learning Research , 14(11), 2013.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-2",
+      "key": "2",
+      "raw": "Thomas G Dietterich and Jesse Hostetler. Conformal prediction intervals for markov decision process trajectories. arXiv preprint arXiv:2206.04860 , 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-3",
+      "key": "3",
+      "raw": "Yaqi Duan, Zeyu Jia, and Mengdi Wang. Minimax-optimal offpolicy evaluation with linear function approximation. In International Conference on Machine Learning , pages 2701-2709. PMLR, 2020.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-4",
+      "key": "4",
+      "raw": "Peter W Glynn et al. Importance sampling for monte carlo estimation of quantiles. In Mathematical Methods in Stochastic Simulation and Experimental Design: Proceedings of the 2nd St. Petersburg Workshop on Simulation , pages 180-185. Citeseer, 1996.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-5",
+      "key": "5",
+      "raw": "Josiah Hanna, Peter Stone, and Scott Niekum. Bootstrapping with models: Confidence intervals for off-policy evaluation. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 31, 2017.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-6",
+      "key": "6",
+      "raw": "Nan Jiang and Jiawei Huang. Minimax value interval for off-policy evaluation and policy optimization. Advances in Neural Information Processing Systems , 33:2747-2758, 2020.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-7",
+      "key": "7",
+      "raw": "Nathan Kallus and Masatoshi Uehara. Double reinforcement learning for efficient off-policy evaluation in markov decision processes. The Journal of Machine Learning Research , 21(1):6742-6804, 2020.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-8",
+      "key": "8",
+      "raw": "Nathan Kallus and Masatoshi Uehara. Efficiently breaking the curse of horizon in off-policy evaluation with double reinforcement learning. Operations Research , 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-9",
+      "key": "9",
+      "raw": "Ilja Kuzborskij, Claire Vernade, Andras Gyorgy, and Csaba Szepesvári. Confident off-policy evaluation and selection through self-normalized importance weighting. In International Conference on Artificial Intelligence and Statistics , pages 640-648. PMLR, 2021.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-10",
+      "key": "10",
+      "raw": "Hoang Le, Cameron Voloshin, and Yisong Yue. Batch policy learning under constraints. In International Conference on Machine Learning , pages 3703-3712. PMLR, 2019.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-11",
+      "key": "11",
+      "raw": "Jing Lei and Larry Wasserman. Distribution-free prediction bands for non-parametric regression. Journal of the Royal Statistical Society: Series B (Statistical Methodology) , 76(1):71-96, 2014.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-12",
+      "key": "12",
+      "raw": "Lihua Lei and Emmanuel J Candès. Conformal inference of counterfactuals and individual treatment effects. Journal of the Royal Statistical Society Series B: Statistical Methodology , 83(5):911-938, 2021.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-13",
+      "key": "13",
+      "raw": "Lars Lindemann, Matthew Cleaveland, Gihyun Shim, and George J Pappas. Safe planning in dynamic environments using conformal prediction. arXiv preprint arXiv:2210.10254 , 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-14",
+      "key": "14",
+      "raw": "Martin Lindh, Anders Karlén, and Ulf Norinder. Predicting the rate of skin penetration using an aggregated conformal prediction framework. Molecular Pharmaceutics , 14(5):1571-1576, 2017.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-15",
+      "key": "15",
+      "raw": "Qiang Liu, Lihong Li, Ziyang Tang, and Dengyong Zhou. Breaking the curse of horizon: Infinite-horizon off-policy estimation. Advances in Neural Information Processing Systems , 31, 2018.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-16",
+      "key": "16",
+      "raw": "Charles Lu, Ken Chang, Praveer Singh, and Jayashree Kalpathy-Cramer. Three applications of conformal prediction for rating breast density in mammography. arXiv preprint arXiv:2206.12008 , 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-17",
+      "key": "17",
+      "raw": "Valery Manokhin. Awesome conformal prediction, April 2022. \"If you use Awesome Conformal Prediction, please cite it as below.\".",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-18",
+      "key": "18",
+      "raw": "Harris Papadopoulos, Kostas Proedrou, Volodya Vovk, and Alex Gammerman. Inductive confidence machines for regression. In European Conference on Machine Learning , pages 345-356. Springer, 2002.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-19",
+      "key": "19",
+      "raw": "Doina Precup. Eligibility traces for off-policy policy evaluation. Computer Science Department Faculty Publication Series , page 80, 2000.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-20",
+      "key": "20",
+      "raw": "Martin L Puterman. Markov decision processes: discrete stochastic dynamic programming . John Wiley & Sons, 2014.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-21",
+      "key": "21",
+      "raw": "Yaniv Romano, Evan Patterson, and Emmanuel Candes. Conformalized quantile regression. Advances in neural information processing systems , 32, 2019.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-22",
+      "key": "22",
+      "raw": "Chengchun Shi, Runzhe Wan, Victor Chernozhukov, and Rui Song. Deeply-debiased off-policy interval estimation. In International Conference on Machine Learning , pages 9580-9591. PMLR, 2021.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-23",
+      "key": "23",
+      "raw": "Chengchun Shi, Sheng Zhang, Wenbin Lu, and Rui Song. Statistical inference of the value function for reinforcement learning in infinitehorizon settings. Journal of the Royal Statistical Society Series B: Statistical Methodology , 84(3):765-793, 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-24",
+      "key": "24",
+      "raw": "Muhammad Faaiz Taufiq, Jean-Francois Ton, Rob Cornish, Yee Whye Teh, and Arnaud Doucet. Conformal off-policy prediction in contextual bandits. arXiv preprint arXiv:2206.04405 , 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-25",
+      "key": "25",
+      "raw": "Philip Thomas, Georgios Theocharous, and Mohammad Ghavamzadeh. High-confidence off-policy evaluation. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 29, 2015.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-26",
+      "key": "26",
+      "raw": "Philip Thomas, Georgios Theocharous, and Mohammad Ghavamzadeh. High confidence policy improvement. In International Conference on Machine Learning , pages 2380-2388. PMLR, 2015.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-27",
+      "key": "27",
+      "raw": "Robert J Tibshirani and Bradley Efron. An introduction to the bootstrap. Monographs on statistics and applied probability , 57(1), 1993.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-28",
+      "key": "28",
+      "raw": "Ryan J Tibshirani, Rina Foygel Barber, Emmanuel Candes, and Aaditya Ramdas. Conformal prediction under covariate shift. Advances in neural information processing systems , 32, 2019.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-29",
+      "key": "29",
+      "raw": "Masatoshi Uehara, Chengchun Shi, and Nathan Kallus. A review of off-policy evaluation in reinforcement learning, 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-30",
+      "key": "30",
+      "raw": "Vladimir Vovk, Alexander Gammerman, and Glenn Shafer. Algorithmic learning in a random world . Springer Science & Business Media, 2005.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-31",
+      "key": "31",
+      "raw": "Wojciech Wisniewski, David Lindsay, and Sian Lindsay. Application of conformal prediction interval estimations to market makers' net positions. In Conformal and Probabilistic Prediction and Applications , pages 285-301. PMLR, 2020.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-32",
+      "key": "32",
+      "raw": "Zepu Xi, Xuebin Zhuang, and Hongbo Chen. Conformal prediction for hypersonic flight vehicle classification. In Conformal and Probabilistic Prediction with Applications , pages 118-206. PMLR, 2022.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    },
+    {
+      "id": "ref-33",
+      "key": "33",
+      "raw": "Xianghao Zhan, Zhan Wang, Meng Yang, Zhiyuan Luo, You Wang, and Guang Li. An electronic nose-based assistive diagnostic prototype for lung cancer detection with conformal prediction. Measurement , 158:107588, 2020.",
+      "page": 8,
+      "authors": null,
+      "title": null,
+      "venue": null,
+      "year": null
+    }
+  ],
   "quality": {
-    "status": "warn",
+    "status": "ok",
     "gates": {
       "canonical_non_empty": true,
-      "has_references_section": false,
+      "has_references_section": true,
       "raster_page_count_ok": true,
       "paper_md_exists": true,
       "context_packet_valid": true

@@ -1,0 +1,21 @@
+[15:35:19] Stage 01 starting
+[15:35:19] Config: formula_enrichment=off, code_enrichment=off, ocr=off, dpi=200
+[15:35:19] Loading Docling
+[15:35:19] Loading complete (0.0s)
+[15:35:19] Parsing Cortes-Gomez et al. - 2025 - Utility-Directed Conformal Prediction A Decision-Aware Framework for Actionable Uncertainty Quantif.pdf
+[15:35:26] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+[15:35:27] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+[15:36:28] Parse complete (68.9s)
+[15:36:28] Rasterizing pages at 200 DPI
+[15:36:31] Rasterization complete (2.4s) — wrote 21 PNGs
+[15:36:31] Stage 01 done (71.4s total)
+[15:36:32] Stage 02 starting
+[15:36:32] Walking Docling AST
+[15:36:33] Wrote 14 equations, 8 figures, 14 tables, 10 references
+[15:36:33] Wrote paper.md (70.9 KB)
+[15:36:33] Stage 02 done (0.8s total)
+[15:36:33] Stage 03 starting
+[15:36:33] Wrote context-packet.json (20.5 KB)
+[15:36:33] Wrote MANIFEST.md
+[15:36:33] Wrote quality-report.json
+[15:36:33] Stage 03 done (0.0s total)

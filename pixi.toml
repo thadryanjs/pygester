@@ -8,6 +8,16 @@ version = "0.1.0"
 [tasks]
 check = "python -m py_compile scripts/*.py scripts/parsers/*.py"
 
+watch = { cmd = [
+    "watchexec", "-r",
+    "rsync", "-avz", "--delete",
+    "--exclude='.pixi'", "--exclude='__pycache__'", "--exclude='*.pyc'",
+    "--exclude='.egg-info'", "--exclude='_build'",
+    "--exclude='.git'", "--exclude='.opencode/node_modules/'",
+    "--include='*.py'", "--include='*.md'", "--include='*.toml'",
+    "--include='*.json'", "--include='*.ipynb'", "--exclude='*'", "./", "/mnt/Workspace/DigestTechPaperSkill/Code"
+] }
+
 # Foffano
 test-foffano = """
 python scripts/process-pdf.py \
