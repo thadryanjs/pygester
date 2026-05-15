@@ -1,13 +1,13 @@
-# beta-code-review.md
+# alpha-code-review.md
 
-Beta readiness review. Check code, specs, README, scripts, and sample runs for mismatch, stale paths, dead files, broken outputs. Not polish.
+Alpha readiness review. Check code, specs, README, scripts, and sample runs for mismatch, stale paths, dead files, broken outputs. Not polish.
 
 **Audience:** coding agent. Open files. Don't guess. If code and spec disagree, mark `QUESTION` unless decision is clearly stale.
 
 **Status labels:**
 
-- `OK` — checked, no beta issue
-- `FIX: <what>` — must change before beta
+- `OK` — checked, no alpha issue
+- `FIX: <what>` — must change before alpha
 - `DEFER: <why>` — real issue, not a blocker
 - `QUESTION: <disparity>` — code/spec disagreement, may be intentional
 
@@ -90,7 +90,7 @@ Common pattern: read Docling JSON, build entries with `id/page/bbox/content/imag
 
 ### Quality report
 
-`canonical_non_empty`, `paper_md_exists`, `context_packet_valid` are hardcoded `True`. **Beta blocker.** `FIX: implement real existence + non-empty checks; do not assert context-packet validity in Stage 02 since it isn't built yet.` Should also warn when count > 0 but sidecar/crops missing.
+`canonical_non_empty`, `paper_md_exists`, `context_packet_valid` are hardcoded `True`. **Alpha blocker.** `FIX: implement real existence + non-empty checks; do not assert context-packet validity in Stage 02 since it isn't built yet.` Should also warn when count > 0 but sidecar/crops missing.
 
 ---
 
@@ -102,7 +102,7 @@ Common pattern: read Docling JSON, build entries with `id/page/bbox/content/imag
 
 **Known findings:**
 
-- `technical-summary.md` not currently written. `QUESTION: implement (per spec-enhancements-1.md), defer, or drop from beta scope?`
+- `technical-summary.md` not currently written. `QUESTION: implement (per spec-enhancements-1.md), defer, or drop from alpha scope?`
 - `MANIFEST.md` uses `Math is {math_status} depending on whether formula enrichment was on.` — awkward conditional, may still use `on/off` language. `FIX: pick one branch cleanly`:
   - true: `Math is LaTeX where Docling extracted formulas.`
   - false: `Math is flattened Unicode from Docling.`
@@ -173,7 +173,7 @@ All runnable scripts use `true/false`. Spec enhancement docs may still have `on/
 - Prototype: not packaged, no semver, output schema may change.
 - Resume behavior reuses existing stage outputs; use clean `--out` for fresh flags.
 
-Unhomed non-goals: `FIX: add to README or BETA_RELEASE_NOTES.md`.
+Unhomed non-goals: `FIX: add to README or ALPHA_RELEASE_NOTES.md`.
 
 ---
 
@@ -190,10 +190,10 @@ richer quality-report schema, auto-detect OCR, Texify sidecar, per-equation prog
 Only with owner approval (long run).
 
 ```bash
-rm -rf runs/beta-foffano-fe-on
+rm -rf runs/alpha-foffano-fe-on
 pixi run python src/process-pdf.py \
   'assets/Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf' \
-  --out runs/beta-foffano-fe-on \
+  --out runs/alpha-foffano-fe-on \
   --formula-enrichment true --code-enrichment false --ocr false --dpi 200
 ```
 
@@ -204,7 +204,7 @@ Check: deliverables non-empty, page PNGs match page count, `visuals/equations/eq
 ## Reporting
 
 ```markdown
-# Beta code review report
+# Alpha code review report
 
 ## Summary
 - Status: NOT READY / READY WITH DEFERS / READY
@@ -232,7 +232,7 @@ Skip OK. Give file paths and exact mismatches for FIX/QUESTION.
 
 ---
 
-## Beta acceptance
+## Alpha acceptance
 
 - No unresolved `FIX` in sections 1–8.
 - All `QUESTION` answered → `OK`, `FIX`, or `DEFER`.
@@ -240,3 +240,59 @@ Skip OK. Give file paths and exact mismatches for FIX/QUESTION.
 - Deferred work filed.
 - README quickstart matches code.
 - Fresh Foffano run produces complete bundle without intervention (or owner waives).
+
+---
+
+## Review findings (2026-05-15, pre-alpha)
+
+> Conducted by separate model against the above spec. All items verified by reading source, not guessing.
+
+### Blockers
+
+- **`--code-enrichment` missing from `process-pdf.py` and `01-parse.py` argparse.** Every `scripts/run-*.sh` and every slurm job passes `--code-enrichment false` → subprocess crash. Fix: add arg to both argparse blocks; pass through to `DoclingParser` (even as no-op).
+
+### FIX (must resolve before alpha)
+
+- `src/parsers/mineru_parser.py` — only raises `NotImplementedError`. Delete.
+- `src/__pycache__/` and `src/parsers/__pycache__/` — stale `.pyc` from deleted scripts (`consolidate_text`, `generate_summary`, `generate_translation`, `normalize`, `section_sanity`, `_01_parse`, etc.). `rm -rf` both. Add `**/__pycache__/` and `**/*.pyc` to `.gitignore`.
+- `scripts/qc-enrichment.sh` — duplicates `src/qc-enrichment.sh` and has a bash/Python f-string bug (`$failures` unquoted). Delete `scripts/` copy; `pixi qc` already points at `src/`.
+- `common.py`: `shutil` imported, never used. Remove.
+- `02-clean.py` figures extractor: dead `image_path = None` assignment before the try block (immediately overwritten in fig_entry). Remove.
+- `MANIFEST.md` template in `03-packet.py`: `Math is {math_status} depending on whether formula enrichment was on.` renders awkwardly with the variable filled in. Pick one branch: `"Math is LaTeX."` or `"Math is Unicode (formula enrichment was off)."` — not both joined.
+- `MANIFEST.md` reproduce command missing `--dpi` and `--max-pages` (conditional on non-default). Add both.
+- Stage 03 logs `"Wrote quality-report.json"` but Stage 02 owns that file. Change to `"Quality report written by Stage 02"` or drop the line.
+- `README.md`: `"Math kept as LaTeX"` stated unconditionally. Qualify: only true with `--formula-enrichment true`.
+- `README.md` pipeline diagram references `normalize →` step — that script is deleted. Update diagram.
+- `runs/test-fe-on/` — partial run, no deliverables. Delete.
+
+### QUESTION (owner decision required)
+
+1. **`--code-enrichment` intent**: add to argparse as accepted-but-ignored, or drop from all run scripts entirely?
+2. **`runs/foffano-run/`** (old layout: `debug/equations/eq-001.png`, stale quality-report gates) and **`runs/cortes-run/`** (partial, no deliverables): mark historical, delete, or regenerate with current code?
+3. **`tests/`** directory: old `artifacts/`/`outputs/` layout, stale `translation.md`. Keep as historical or remove?
+4. **`pixi clean` task**: `rm -rf run run-foffano run-cortes runs` nukes all of `runs/` including slurm outputs. Intentional?
+5. **`--max-pages` and raw JSON**: flag caps raster + markdown but Docling parses the full doc. Intentional? Document either way.
+6. **Skip-on-existing behavior** in `process-pdf.py`: reuses Stage outputs even if flags changed. Document as "use clean `--out` for fresh flags" in README or add a warning.
+
+### DEFER (real issues, not alpha blockers)
+
+- `src/parsers/base.py`: `Parser` Protocol not used by any type annotation. Drop or keep for future swap.
+- `spec-enhancements-1/2/3.md` use `on/off` flag language; code uses `true/false`. Spec docs only — no runtime impact.
+- `process-pdf.py` uses `print()` for stage-transition messages instead of `setup_logging`. Wrapper messages appear on stdout but not in `debug/run.log`.
+- `02-clean.py`: explicit `import logging` at top is redundant (pulled in via `setup_logging` from `common`). Harmless.
+- Code extractor runs regardless of `--code-enrichment` flag. Crops are always useful. Document as always-on behavior in spec.
+- `context-packet.json` `paper_profile.title` hardcoded `"Unknown"`. Document: Docling doesn't expose title at this abstraction level.
+- `admin/todo.md` references old paths (`artifacts/`, `outputs/`, `context_packet.json`). Stale notes, not user-facing.
+
+### Verified OK
+
+- Stage 01 outputs all present and correct per spec.
+- `_flag_on()` correctly treats only `"true"` as enabled.
+- Extractor gating: sidecars and dirs only created when count > 0.
+- `_bbox_to_pixels()` handles `BOTTOMLEFT`/`TOPLEFT`, padding, clamping correctly.
+- `write_quality_report()` uses real existence checks — no hardcoded `True`.
+- `setup_logging()` correct: stdout + append to `debug/run.log`, noisy libs suppressed.
+- All slurm scripts call correct `scripts/run-*.sh` counterparts.
+- `pixi qc` task points at correct (`src/`) qc script.
+- README: no `--cache`, no `--fail-on-low-quality`, no auto-OCR claims, correct output paths.
+- `spec.md` output tree, stage responsibilities, quality gates match code.
