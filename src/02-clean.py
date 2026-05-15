@@ -36,7 +36,6 @@ def normalize_text(text: str) -> str:
 def add_frontmatter(markdown: str, manifest: dict) -> str:
     """Prepend YAML frontmatter."""
     flags = manifest.get("flags", {})
-    formula = "LaTeX" if flags.get("formula_enrichment") == "on" else "Unicode soup"
 
     frontmatter = f"""---
 title: Docling Extract
@@ -44,9 +43,9 @@ source_sha256: {manifest.get("input_pdf_sha256", "")}
 parser: {manifest.get("parser", {}).get("name", "docling")} {manifest.get("parser", {}).get("version", "")}
 tool_version: {SKILL_VERSION}
 run_at: {manifest.get("timestamp_utc", "")}
-formula_enrichment: {flags.get("formula_enrichment", "off")}
-code_enrichment: {flags.get("code_enrichment", "off")}
-ocr: {flags.get("ocr", "off")}
+formula_enrichment: {flags.get("formula_enrichment", "false")}
+code_enrichment: {flags.get("code_enrichment", "false")}
+ocr: {flags.get("ocr", "false")}
 ---
 
 """
@@ -125,10 +124,6 @@ def extract_figures(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: Pat
     crops_written = 0
     crop_failures = 0
 
-    # Visuals are core output
-    figures_dir = out_dir / "visuals" / "figures"
-    figures_dir.mkdir(parents=True, exist_ok=True)
-
     for i, pic in enumerate(pictures, start=1):
         prov = pic.get("prov", [])
         if not prov:
@@ -168,7 +163,7 @@ def extract_figures(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: Pat
                 )
                 
                 cropped = page_img.crop(pixels)
-                cropped.save(figures_dir / crop_filename)
+                cropped.save(out_dir / "visuals" / "figures" / crop_filename)
                 crops_written += 1
             except Exception as e:
                 log.warning(f"Crop failed for figure {i}: {e}")
@@ -196,9 +191,6 @@ def extract_tables(parser_json: Path, debug_dir: Path) -> tuple[list[dict], int]
     tables_data = data.get("tables", [])
     tables = []
 
-    # Create output directory
-    tables_dir = ensure_dir(debug_dir / "tables")
-
     for i, tbl in enumerate(tables_data):
         prov = tbl.get("prov", [])
         if not prov:
@@ -212,7 +204,6 @@ def extract_tables(parser_json: Path, debug_dir: Path) -> tuple[list[dict], int]
             "id": tbl_id,
             "page": page_no,
             "bbox": [bbox.get("l", 0), bbox.get("b", 0), bbox.get("r", 0), bbox.get("t", 0)],
-            "csv_path": f"debug/tables/{tbl_id}.csv",
             "rows": tbl.get("rows", 0),
             "cols": tbl.get("cols", 0),
         })
@@ -228,10 +219,6 @@ def extract_code_blocks(parser_json: Path, pages_dir: Path, dpi: int, debug_dir:
     blocks = []
     crops_written = 0
     crop_failures = 0
-
-    # Visuals are core output
-    code_dir = out_dir / "visuals" / "code"
-    code_dir.mkdir(parents=True, exist_ok=True)
 
     for i, block in enumerate(code_blocks, start=1):
         prov = block.get("prov", [])
@@ -264,7 +251,7 @@ def extract_code_blocks(parser_json: Path, pages_dir: Path, dpi: int, debug_dir:
                 )
                 
                 cropped = page_img.crop(pixels)
-                cropped.save(code_dir / crop_filename)
+                cropped.save(out_dir / "visuals" / "code" / crop_filename)
                 image_path = f"visuals/code/{crop_filename}"
                 crops_written += 1
             except Exception as e:
@@ -295,10 +282,6 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
     equations = []
     crops_written = 0
     crop_failures = 0
-
-    # Visuals are core output
-    equations_dir = out_dir / "visuals" / "equations"
-    equations_dir.mkdir(parents=True, exist_ok=True)
 
     for i, fmt in enumerate(formulas, start=1):
         prov = fmt.get("prov", [])
@@ -332,7 +315,7 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
                 )
                 
                 cropped = page_img.crop(pixels)
-                cropped.save(equations_dir / crop_filename)
+                cropped.save(out_dir / "visuals" / "equations" / crop_filename)
                 image_path = f"visuals/equations/{crop_filename}"
                 crops_written += 1
             except Exception as e:
@@ -368,9 +351,6 @@ def extract_references(parser_json: Path, debug_dir: Path) -> tuple[list[dict], 
 
     if refs_start is None:
         return [], 0
-
-    # Create output directory
-    references_dir = ensure_dir(debug_dir / "references")
 
     references = []
     for i, t in enumerate(texts[refs_start:]):
@@ -474,7 +454,6 @@ def clean(out_dir: Path) -> None:
     # Write sidecars only if non-empty
     text_dir = ensure_dir(debug / "intermediate" / "text")
     write_json(text_dir / "sections.json", sections)
-    write_json(text_dir / "provenance.json", [])
     (text_dir / "plaintext.txt").write_text(normalized, encoding="utf-8")
 
     if figures:
