@@ -1,0 +1,332 @@
+[
+  {
+    "id": "ref-1",
+    "key": "1",
+    "raw": "Léon Bottou, Jonas Peters, Joaquin Quiñonero-Candela, Denis X Charles, D Max Chickering, Elon Portugaly, Dipankar Ray, Patrice Simard, and Ed Snelson. Counterfactual reasoning and learning systems: The example of computational advertising. Journal of Machine Learning Research , 14(11), 2013.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-2",
+    "key": "2",
+    "raw": "Thomas G Dietterich and Jesse Hostetler. Conformal prediction intervals for markov decision process trajectories. arXiv preprint arXiv:2206.04860 , 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-3",
+    "key": "3",
+    "raw": "Yaqi Duan, Zeyu Jia, and Mengdi Wang. Minimax-optimal offpolicy evaluation with linear function approximation. In International Conference on Machine Learning , pages 2701-2709. PMLR, 2020.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-4",
+    "key": "4",
+    "raw": "Peter W Glynn et al. Importance sampling for monte carlo estimation of quantiles. In Mathematical Methods in Stochastic Simulation and Experimental Design: Proceedings of the 2nd St. Petersburg Workshop on Simulation , pages 180-185. Citeseer, 1996.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-5",
+    "key": "5",
+    "raw": "Josiah Hanna, Peter Stone, and Scott Niekum. Bootstrapping with models: Confidence intervals for off-policy evaluation. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 31, 2017.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-6",
+    "key": "6",
+    "raw": "Nan Jiang and Jiawei Huang. Minimax value interval for off-policy evaluation and policy optimization. Advances in Neural Information Processing Systems , 33:2747-2758, 2020.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-7",
+    "key": "7",
+    "raw": "Nathan Kallus and Masatoshi Uehara. Double reinforcement learning for efficient off-policy evaluation in markov decision processes. The Journal of Machine Learning Research , 21(1):6742-6804, 2020.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-8",
+    "key": "8",
+    "raw": "Nathan Kallus and Masatoshi Uehara. Efficiently breaking the curse of horizon in off-policy evaluation with double reinforcement learning. Operations Research , 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-9",
+    "key": "9",
+    "raw": "Ilja Kuzborskij, Claire Vernade, Andras Gyorgy, and Csaba Szepesvári. Confident off-policy evaluation and selection through self-normalized importance weighting. In International Conference on Artificial Intelligence and Statistics , pages 640-648. PMLR, 2021.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-10",
+    "key": "10",
+    "raw": "Hoang Le, Cameron Voloshin, and Yisong Yue. Batch policy learning under constraints. In International Conference on Machine Learning , pages 3703-3712. PMLR, 2019.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-11",
+    "key": "11",
+    "raw": "Jing Lei and Larry Wasserman. Distribution-free prediction bands for non-parametric regression. Journal of the Royal Statistical Society: Series B (Statistical Methodology) , 76(1):71-96, 2014.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-12",
+    "key": "12",
+    "raw": "Lihua Lei and Emmanuel J Candès. Conformal inference of counterfactuals and individual treatment effects. Journal of the Royal Statistical Society Series B: Statistical Methodology , 83(5):911-938, 2021.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-13",
+    "key": "13",
+    "raw": "Lars Lindemann, Matthew Cleaveland, Gihyun Shim, and George J Pappas. Safe planning in dynamic environments using conformal prediction. arXiv preprint arXiv:2210.10254 , 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-14",
+    "key": "14",
+    "raw": "Martin Lindh, Anders Karlén, and Ulf Norinder. Predicting the rate of skin penetration using an aggregated conformal prediction framework. Molecular Pharmaceutics , 14(5):1571-1576, 2017.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-15",
+    "key": "15",
+    "raw": "Qiang Liu, Lihong Li, Ziyang Tang, and Dengyong Zhou. Breaking the curse of horizon: Infinite-horizon off-policy estimation. Advances in Neural Information Processing Systems , 31, 2018.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-16",
+    "key": "16",
+    "raw": "Charles Lu, Ken Chang, Praveer Singh, and Jayashree Kalpathy-Cramer. Three applications of conformal prediction for rating breast density in mammography. arXiv preprint arXiv:2206.12008 , 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-17",
+    "key": "17",
+    "raw": "Valery Manokhin. Awesome conformal prediction, April 2022. \"If you use Awesome Conformal Prediction, please cite it as below.\".",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-18",
+    "key": "18",
+    "raw": "Harris Papadopoulos, Kostas Proedrou, Volodya Vovk, and Alex Gammerman. Inductive confidence machines for regression. In European Conference on Machine Learning , pages 345-356. Springer, 2002.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-19",
+    "key": "19",
+    "raw": "Doina Precup. Eligibility traces for off-policy policy evaluation. Computer Science Department Faculty Publication Series , page 80, 2000.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-20",
+    "key": "20",
+    "raw": "Martin L Puterman. Markov decision processes: discrete stochastic dynamic programming . John Wiley & Sons, 2014.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-21",
+    "key": "21",
+    "raw": "Yaniv Romano, Evan Patterson, and Emmanuel Candes. Conformalized quantile regression. Advances in neural information processing systems , 32, 2019.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-22",
+    "key": "22",
+    "raw": "Chengchun Shi, Runzhe Wan, Victor Chernozhukov, and Rui Song. Deeply-debiased off-policy interval estimation. In International Conference on Machine Learning , pages 9580-9591. PMLR, 2021.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-23",
+    "key": "23",
+    "raw": "Chengchun Shi, Sheng Zhang, Wenbin Lu, and Rui Song. Statistical inference of the value function for reinforcement learning in infinitehorizon settings. Journal of the Royal Statistical Society Series B: Statistical Methodology , 84(3):765-793, 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-24",
+    "key": "24",
+    "raw": "Muhammad Faaiz Taufiq, Jean-Francois Ton, Rob Cornish, Yee Whye Teh, and Arnaud Doucet. Conformal off-policy prediction in contextual bandits. arXiv preprint arXiv:2206.04405 , 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-25",
+    "key": "25",
+    "raw": "Philip Thomas, Georgios Theocharous, and Mohammad Ghavamzadeh. High-confidence off-policy evaluation. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 29, 2015.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-26",
+    "key": "26",
+    "raw": "Philip Thomas, Georgios Theocharous, and Mohammad Ghavamzadeh. High confidence policy improvement. In International Conference on Machine Learning , pages 2380-2388. PMLR, 2015.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-27",
+    "key": "27",
+    "raw": "Robert J Tibshirani and Bradley Efron. An introduction to the bootstrap. Monographs on statistics and applied probability , 57(1), 1993.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-28",
+    "key": "28",
+    "raw": "Ryan J Tibshirani, Rina Foygel Barber, Emmanuel Candes, and Aaditya Ramdas. Conformal prediction under covariate shift. Advances in neural information processing systems , 32, 2019.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-29",
+    "key": "29",
+    "raw": "Masatoshi Uehara, Chengchun Shi, and Nathan Kallus. A review of off-policy evaluation in reinforcement learning, 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-30",
+    "key": "30",
+    "raw": "Vladimir Vovk, Alexander Gammerman, and Glenn Shafer. Algorithmic learning in a random world . Springer Science & Business Media, 2005.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-31",
+    "key": "31",
+    "raw": "Wojciech Wisniewski, David Lindsay, and Sian Lindsay. Application of conformal prediction interval estimations to market makers' net positions. In Conformal and Probabilistic Prediction and Applications , pages 285-301. PMLR, 2020.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-32",
+    "key": "32",
+    "raw": "Zepu Xi, Xuebin Zhuang, and Hongbo Chen. Conformal prediction for hypersonic flight vehicle classification. In Conformal and Probabilistic Prediction with Applications , pages 118-206. PMLR, 2022.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  },
+  {
+    "id": "ref-33",
+    "key": "33",
+    "raw": "Xianghao Zhan, Zhan Wang, Meng Yang, Zhiyuan Luo, You Wang, and Guang Li. An electronic nose-based assistive diagnostic prototype for lung cancer detection with conformal prediction. Measurement , 158:107588, 2020.",
+    "page": 8,
+    "authors": null,
+    "title": null,
+    "venue": null,
+    "year": null
+  }
+]

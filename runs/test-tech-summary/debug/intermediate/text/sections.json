@@ -1,0 +1,156 @@
+[
+  {
+    "id": "sec-001",
+    "heading": "Conformal Off-Policy Evaluation in Markov Decision Processes",
+    "level": 2,
+    "start_char": 0,
+    "end_char": 1250
+  },
+  {
+    "id": "sec-002",
+    "heading": "I. INTRODUCTION",
+    "level": 2,
+    "start_char": 1250,
+    "end_char": 5402
+  },
+  {
+    "id": "sec-003",
+    "heading": "II. RELATED WORK",
+    "level": 2,
+    "start_char": 5402,
+    "end_char": 7458
+  },
+  {
+    "id": "sec-004",
+    "heading": "B. Conformal Prediction (CP)",
+    "level": 2,
+    "start_char": 7458,
+    "end_char": 8317
+  },
+  {
+    "id": "sec-005",
+    "heading": "III. PRELIMINARIES",
+    "level": 2,
+    "start_char": 8317,
+    "end_char": 8340
+  },
+  {
+    "id": "sec-006",
+    "heading": "A. Off-policy evaluation in Markov Decision Processes",
+    "level": 2,
+    "start_char": 8340,
+    "end_char": 9629
+  },
+  {
+    "id": "sec-007",
+    "heading": "B. Standard Conformal Prediction",
+    "level": 2,
+    "start_char": 9629,
+    "end_char": 11003
+  },
+  {
+    "id": "sec-008",
+    "heading": "IV. CONFORMALIZED OFF-POLICY EVALUATION",
+    "level": 2,
+    "start_char": 11003,
+    "end_char": 11695
+  },
+  {
+    "id": "sec-009",
+    "heading": "A. Weighted conformal prediction",
+    "level": 2,
+    "start_char": 11695,
+    "end_char": 15255
+  },
+  {
+    "id": "sec-010",
+    "heading": "B. Selecting the score function",
+    "level": 2,
+    "start_char": 15255,
+    "end_char": 18908
+  },
+  {
+    "id": "sec-011",
+    "heading": "V. OFFLINE ESTIMATION OF THE LIKELIHOOD RATIOS",
+    "level": 2,
+    "start_char": 18908,
+    "end_char": 19081
+  },
+  {
+    "id": "sec-012",
+    "heading": "A. Monte-Carlo method",
+    "level": 2,
+    "start_char": 19081,
+    "end_char": 20574
+  },
+  {
+    "id": "sec-013",
+    "heading": "B. Empirical and gradient-based methods",
+    "level": 2,
+    "start_char": 20574,
+    "end_char": 23814
+  },
+  {
+    "id": "sec-014",
+    "heading": "C. Algorithm",
+    "level": 2,
+    "start_char": 23814,
+    "end_char": 24381
+  },
+  {
+    "id": "sec-015",
+    "heading": "Algorithm 1 Conformal Off-Policy Evaluation in MDPs",
+    "level": 2,
+    "start_char": 24381,
+    "end_char": 25027
+  },
+  {
+    "id": "sec-016",
+    "heading": "VI. NUMERICAL RESULTS",
+    "level": 2,
+    "start_char": 25027,
+    "end_char": 25940
+  },
+  {
+    "id": "sec-017",
+    "heading": "A. Environment",
+    "level": 2,
+    "start_char": 25940,
+    "end_char": 27307
+  },
+  {
+    "id": "sec-018",
+    "heading": "B. Algorithm details",
+    "level": 2,
+    "start_char": 27307,
+    "end_char": 28775
+  },
+  {
+    "id": "sec-019",
+    "heading": "C. Baseline: Quantile Estimation through Importance Sampling with Bootstrap (QIS-Bootstrap)",
+    "level": 2,
+    "start_char": 28775,
+    "end_char": 31127
+  },
+  {
+    "id": "sec-020",
+    "heading": "D. Results and discussion",
+    "level": 2,
+    "start_char": 31127,
+    "end_char": 34413
+  },
+  {
+    "id": "sec-021",
+    "heading": "VII. CONCLUSION",
+    "level": 2,
+    "start_char": 34413,
+    "end_char": 35446
+  },
+  {
+    "id": "sec-022",
+    "heading": "REFERENCES",
+    "level": 2,
+    "start_char": 35446,
+    "end_char": 41816
+  }
+]

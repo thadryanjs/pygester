@@ -1,0 +1,452 @@
+[
+  {
+    "id": "eq-001",
+    "page": 2,
+    "bbox": [
+      346.84171857810236,
+      288.58391448916,
+      558.6684656255821,
+      312.130519007739
+    ],
+    "latex": "1 -α ≤ P ( Y ∈ ˆ C n ( X )) ≤ 1 -α + 1 n +1 . (1)",
+    "image_path": "visuals/equations/equation_001.png",
+    "number": null,
+    "section_id": "sec-007",
+    "preceding_prose": "Conformal Prediction (CP) is a method for distributionfree uncertainty quantification of learning methods, see e.g. [30], [18], [11]. To illustrate how CP works, we consider classical supervised learning tasks and restrict our attention to split CP where the pre-training and the calibration phases are conducted on different datasets. The learner starts with a pretrained model ˆ f : X → Y that maps inputs to predicted labels (this model may also consist of upper and lower estimated quantiles if the pre-training procedure corresponds to quantile regression). She also has i.i.d. calibration data D cal = { X i , Y i } n i =1 i.i.d. ∼ P X,Y . From ˆ f and D cal , CP constructs for each possible input x a subset ˆ C n ( x ) of possible labels. More precisely, the method proceeds as follows: (i) first a score function s : X × Y → R is constructed from the model ˆ f (e.g., it could be the residuals | y -ˆ f ( x ) | if Y ⊂ R ); (ii) the scores of the various calibration samples are computed V i = s ( X i , Y i ) , and (iii) the confidence set is built according to ˆ C n ( x ) = { y ∈ Y : s ( x, y ) ≤ η } , where η = Quantile 1 -α ( 1 n +1 (∑ n i =1 δ V i + δ {∞} ) ) . If ( X 1 , Y 1 ) , . . . , ( X n +1 , Y n +1 ) are exchangeable, this construction ensures coverage with certainty level 1 -α :"
+  },
+  {
+    "id": "eq-002",
+    "page": 2,
+    "bbox": [
+      351.89574591151137,
+      51.599914643000034,
+      519.2961210741462,
+      87.09534786300003
+    ],
+    "latex": "w ( x, y ) := d P π X,Y d P π b X,Y ( x, y ) = d P π Y | X d P π b Y | X ( y | x ) ,",
+    "image_path": "visuals/equations/equation_002.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "As suggested [28], [24], we can handle the distribution shift by weighing the scores using estimates of the likelihood ratio"
+  },
+  {
+    "id": "eq-003",
+    "page": 3,
+    "bbox": [
+      77.1942814605402,
+      359.78288909916,
+      275.5969858011886,
+      411.018344384
+    ],
+    "latex": "P π ′ ( τ | x ) = π ′ ( a 1 | x ) q ( r 1 | x, a 1 ) H ∏ t =2 π ′ ( a t | x t ) × T ( x t | x t -1 , a t -1 ) q ( r t | x t , a t ) .",
+    "image_path": "visuals/equations/equation_003.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "where for any policy π ′ ∈ { π, π b } , P π ′ X,Y ( x, y ) = P π ′ Y | X ( y | x ) p ( x ) denotes the distribution of the observation ( X,Y ) under π ′ ( P π ′ Y | X is this distribution given X ), and p ( x ) is the initial state distribution, which is the same in both cases. The value of a given trajectory τ = { x 1 , a 1 , r 1 , . . . , x H , a H , r H } is y = ∑ H t =1 r t . For any policy π ′ ∈ { π, π b } , the probability of observing τ under π ′ given the initial state x 1 = x is:"
+  },
+  {
+    "id": "eq-004",
+    "page": 3,
+    "bbox": [
+      96.320999487934,
+      292.953681243914,
+      256.4703485496462,
+      339.353335839
+    ],
+    "latex": "w ( x, y ) = ∫ 1 { y = ∑ H t =1 r t } P π ( τ | x )d τ ∫ 1 { y = ∑ H t =1 r t } P π b ( τ | x )d τ .",
+    "image_path": "visuals/equations/equation_004.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "Hence the weights can be written as:"
+  },
+  {
+    "id": "eq-005",
+    "page": 3,
+    "bbox": [
+      53.999652431144,
+      95.36640722536481,
+      299.46664075082697,
+      165.03287366932477
+    ],
+    "latex": "p w i ( x, y ) =        w ( X i , Y i ) ∑ n j =1 w ( X j , Y j ) + w ( x, y ) if i ≤ n, w ( x, y ) ∑ n j =1 w ( X j , Y j ) + w ( x, y ) if i = n +1 , (2)",
+    "image_path": "visuals/equations/equation_005.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "Assumption 1: We assume throughout the paper that P π ( ·| x ) is absolutely continuous w.r.t. P π b ( ·| x ) for all x ∈ X . We further assume that calibration data D cal provides n i.i.d. samples ( X i , Y i ) ∼ P π b X,Y ."
+  },
+  {
+    "id": "eq-006",
+    "page": 3,
+    "bbox": [
+      62.951533810940795,
+      56.8781598458786,
+      299.46813089196,
+      86.85613169570001
+    ],
+    "latex": "ˆ C n ( x ) := { y ∈ R : s ( x, y ) ≤ Quantile 1 -α ( ˆ F x,y n )} . (3)",
+    "image_path": "visuals/equations/equation_006.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "and the conformalized set"
+  },
+  {
+    "id": "eq-007",
+    "page": 3,
+    "bbox": [
+      375.67647152430936,
+      675.9634003056786,
+      558.6676201206392,
+      708.22999346175
+    ],
+    "latex": "P π b ,π [ Y ∈ ˆ C n ( X ) ] ≥ 1 -α, (4)",
+    "image_path": "visuals/equations/equation_007.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "Proposition 1: Under Assumption 1, for any score function s and any α ∈ (0 , 1) ,"
+  },
+  {
+    "id": "eq-008",
+    "page": 3,
+    "bbox": [
+      360.82915324948874,
+      411.443671477914,
+      558.6672981251023,
+      441.42160594864
+    ],
+    "latex": "P π b ,π [ Y ∈ ˆ C n ( X ) ] ≥ 1 -α -∆ w , (5)",
+    "image_path": "visuals/equations/equation_008.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "Proposition 2: Assume that the conformalized sets (3) are defined using estimated the weights ˆ w ( x, y ) satisfying E π b [ ˆ w ( X,Y ) r ] ≤ M r r < ∞ for some r ≥ 2 . Define ∆ w = 1 2 E π b | ˆ w ( X,Y ) -w ( X,Y ) | . Then"
+  },
+  {
+    "id": "eq-009",
+    "page": 3,
+    "bbox": [
+      338.2639206681132,
+      356.378669035914,
+      532.9285244088579,
+      386.3566232046154
+    ],
+    "latex": "P π b ,π [ Y ∈ ˆ C n ( X ) ] ≤ 1 -α +∆ w + cn 1 /r -1 ,",
+    "image_path": "visuals/equations/equation_009.png",
+    "number": null,
+    "section_id": "sec-009",
+    "preceding_prose": "If, in addition, the non-conformity scores { V i } n i =1 have no ties almost surely, then we also have"
+  },
+  {
+    "id": "eq-010",
+    "page": 3,
+    "bbox": [
+      352.9647328651156,
+      229.05390045115996,
+      558.6678159456975,
+      246.33901102435004
+    ],
+    "latex": "s ( x, y ) = max( q α lo ( x ) -y, y -q α hi ( x )) , (6)",
+    "image_path": "visuals/equations/equation_010.png",
+    "number": null,
+    "section_id": "sec-010",
+    "preceding_prose": "The choice of the score function critically impacts the size and center of the conformalized sets ˆ C n ( x ) . In previous work [21], [24], the pre-training procedure outputs some estimated quantiles q α lo ( x ) and q α hi ( x ) for the value of the behavior policy with initial state x , and the use of the symmetric score function"
+  },
+  {
+    "id": "eq-011",
+    "page": 4,
+    "bbox": [
+      54.0,
+      448.374579680914,
+      301.543152018955,
+      499.27462247261536
+    ],
+    "latex": "ˆ C n ( x ) := { y ∈ R : q α lo ( x ) -y ≤ Quantile 1 -α/ 2 ( ˆ F x,y n, 0 )} ∩ { y ∈ R : y -q α hi ( x ) ≤ Quantile 1 -α/ 2 ( ˆ F x,y n, 1 )} , (7)",
+    "image_path": "visuals/equations/equation_011.png",
+    "number": null,
+    "section_id": "sec-010",
+    "preceding_prose": "1) Double-quantile score: a first idea is to break the symmetry of the score function used in [24] by considering the following confidence set"
+  },
+  {
+    "id": "eq-012",
+    "page": 4,
+    "bbox": [
+      115.09392685926822,
+      293.345679534914,
+      299.467741789082,
+      323.32360318461537
+    ],
+    "latex": "P π b ,π [ Y ∈ ˆ C n ( X ) ] ≥ 1 -α. (8)",
+    "image_path": "visuals/equations/equation_012.png",
+    "number": null,
+    "section_id": "sec-010",
+    "preceding_prose": "Proposition 3: Under Assumption 1, for α ∈ (0 , 1) the sets ˆ C n ( x ) in (7) satisfies"
+  },
+  {
+    "id": "eq-013",
+    "page": 4,
+    "bbox": [
+      101.6290393882972,
+      209.64466024791398,
+      251.162640008858,
+      239.62261441561532
+    ],
+    "latex": "P π b ,π [ Y ∈ ˆ C n ( X ) ] ≥ 1 -α -∆ w .",
+    "image_path": "visuals/equations/equation_013.png",
+    "number": null,
+    "section_id": "sec-010",
+    "preceding_prose": "Proposition 4: Let ˆ C n ( x ) be as in (7) with weights w ( x, y ) replaced by ˆ w ( x, y ) . Under the same assumptions as in Proposition 2, we have"
+  },
+  {
+    "id": "eq-014",
+    "page": 4,
+    "bbox": [
+      79.0639084611132,
+      153.89514731685404,
+      273.728634271858,
+      183.87312998769994
+    ],
+    "latex": "P π b ,π [ Y ∈ ˆ C n ( X ) ] ≤ 1 -α +∆ w + cn 1 /r -1 ,",
+    "image_path": "visuals/equations/equation_014.png",
+    "number": null,
+    "section_id": "sec-010",
+    "preceding_prose": "If, in addition, non-conformity scores { V i, 0 } n i =1 and { V i, 1 } n i =1 have no ties almost surely, then we also have"
+  },
+  {
+    "id": "eq-015",
+    "page": 4,
+    "bbox": [
+      376.72429750134023,
+      685.69188568116,
+      558.668073819139,
+      705.0173366839691
+    ],
+    "latex": "ˆ C n ( x ) = ˆ C n, 0 ( x ) ∩ ˆ C n, 1 ( x ) , (9)",
+    "image_path": "visuals/equations/equation_015.png",
+    "number": null,
+    "section_id": "sec-010",
+    "preceding_prose": "We may also combine this choice with the double-quantile idea and construct ˆ C n ( x ) as"
+  },
+  {
+    "id": "eq-016",
+    "page": 4,
+    "bbox": [
+      355.5218711277614,
+      460.551673186914,
+      515.6703607566461,
+      506.952334863
+    ],
+    "latex": "w ( x, y ) = ∫ 1 { y = ∑ H t =1 r t } P π ( τ | x )d τ ∫ 1 { y = ∑ H t =1 r t } P π b ( τ | x )d τ ,",
+    "image_path": "visuals/equations/equation_016.png",
+    "number": null,
+    "section_id": "sec-012",
+    "preceding_prose": "To estimate w ( x, y ) , we need to compute P π X,Y ( x, y ) and P π b X,Y ( x, y ) . Recall that the likelihood ratio is equal to"
+  },
+  {
+    "id": "eq-017",
+    "page": 4,
+    "bbox": [
+      357.9499957345352,
+      306.878603471414,
+      558.6675311004783,
+      357.960360986
+    ],
+    "latex": "ˆ w ( x, y ) = (1 /h ) ∑ h k =1 1 { y = ∑ H t =1 r ( k ) t } (1 /h ) ∑ h k =1 1 { y = ∑ H t =1 r ( k ) ′ t } , (10)",
+    "image_path": "visuals/equations/equation_017.png",
+    "number": null,
+    "section_id": "sec-012",
+    "preceding_prose": "where τ is a trajectory of length H . Since P π ( τ | x ) (sim. P π b ( τ | x ) ) depends on the transition kernel T and the reward distribution q , one needs to estimate these distributions from the data. We may proceed as follows:"
+  },
+  {
+    "id": "eq-018",
+    "page": 5,
+    "bbox": [
+      56.4587696192872,
+      593.4425241209999,
+      296.33760243592866,
+      720.575320703
+    ],
+    "latex": "w ( x, y ) = P π X,Y ( x, y ) P π b X,Y ( x, y ) , = ∫ P π X,Y ( x, y ) P π b X,Y ( x, y ) P π b τ | X,Y ( τ | x, y ) P π b τ | X,Y ( τ | x, y ) P π τ | X,Y ( τ | x, y )d τ, = ∫ P π X,Y,τ ( x, y, τ ) P π b X,Y,τ ( x, y, τ ) P π b τ | X,Y ( τ | x, y )d τ, = E τ ∼ P π b τ | X = x,Y = y [ P π X,Y,τ ( x, y, τ ) P π b X,Y,τ ( x, y, τ ) ] .",
+    "image_path": "visuals/equations/equation_018.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "Next we present an alternative and more scalable way to estimate the weights w ( x, y ) from the training dataset D tr . We make use of the following simple rewriting of the likelihood ratio (also suggested in [24]):"
+  },
+  {
+    "id": "eq-019",
+    "page": 5,
+    "bbox": [
+      58.463001251,
+      520.711646327914,
+      295.5246252906932,
+      568.510379296
+    ],
+    "latex": "P π X,Y,τ ( x, y, τ ) P π b X,Y,τ ( x, y, τ ) = P ( y | x, τ ) P π ( τ | x ) P ( y | x, τ ) P π b ( τ | x ) = ∏ H t =1 π ( a t | x t ) ∏ H t =1 π b ( a t | x t ) .",
+    "image_path": "visuals/equations/equation_019.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "Next, observe that:"
+  },
+  {
+    "id": "eq-020",
+    "page": 5,
+    "bbox": [
+      53.69165044615144,
+      455.188666594914,
+      299.46799011735607,
+      503.4096057210632
+    ],
+    "latex": "w ( x, y ) = E τ ∼ P π b τ | X = x,Y = y [ ∏ H t =1 π ( a t | x t ) ∏ H t =1 π b ( a t | x t ) ] . (11) To this aim, we propose the following two approaches.",
+    "image_path": "visuals/equations/equation_020.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "Hence, learning w amounts to learning the following expectation:"
+  },
+  {
+    "id": "eq-021",
+    "page": 5,
+    "bbox": [
+      65.81544570635381,
+      343.333655608914,
+      299.4681359329978,
+      391.930362207
+    ],
+    "latex": "ˆ w ( x, y ) = 1 N ( x, y ) ∑ τ i ∈D tr ( x,y ) ∏ H t =1 π ( a ( i ) t | x ( i ) t ) ∏ H t =1 π b ( a ( i ) t | x ( i ) t ) , (12)",
+    "image_path": "visuals/equations/equation_021.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "1) Empirical estimator: this method applies to the case x and y belong to some finite spaces X and Y only. In this case, we can directly estimate w ( x, y ) from the training data D tr by simply computing"
+  },
+  {
+    "id": "eq-022",
+    "page": 5,
+    "bbox": [
+      102.0295657180145,
+      182.92490264916,
+      250.7615226023453,
+      203.34496843775003
+    ],
+    "latex": "P π b [ | ˆ w ( X,Y ) -w ( X,Y ) | > ε ] < δ.",
+    "image_path": "visuals/equations/equation_022.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "Proposition 5: Let ( ε, δ ) ∈ (0 , 1) . Assume the ratio ∏ H t =1 π ( a t | x t ) / ∏ H t =1 π b ( a t | x t ) to be bounded in [ m,M ] for all possible trajectories of horizon H generated under π b . If min x,y N ( x, y ) ≥ ( M -m ) 2 2 ε 2 ln 2 |X||Y| δ , then"
+  },
+  {
+    "id": "eq-023",
+    "page": 5,
+    "bbox": [
+      361.69023007021565,
+      653.69890423616,
+      529.5250472701406,
+      711.5423635798155
+    ],
+    "latex": "M 1 /H = max ( ϵ ϵ b , (1 -ϵ ) + ϵ/ |A| (1 -ϵ b ) + ϵ b / |A| ) , m 1 /H = min ( ϵ ϵ b , (1 -ϵ ) + ϵ/ |A| (1 -ϵ b ) + ϵ b / |A| ) .",
+    "image_path": "visuals/equations/equation_023.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "with ϵ b ), for some ϵ, ϵ b ≥ 0 , then one can choose M,m as"
+  },
+  {
+    "id": "eq-024",
+    "page": 5,
+    "bbox": [
+      318.1225327454514,
+      472.622657073914,
+      558.6675355686141,
+      523.8321143627
+    ],
+    "latex": "min f E ( X,Y,τ ) ∼ P π b X,Y,τ   ( ∏ H t =1 π ( a t | x t ) ∏ H t =1 π b ( a t | x t ) -f ( X,Y ) ) 2   . (13)",
+    "image_path": "visuals/equations/equation_024.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "See also Fig. 3 for an example of the scaling of M -m ."
+  },
+  {
+    "id": "eq-025",
+    "page": 5,
+    "bbox": [
+      320.872985839,
+      397.01566244491397,
+      551.514522943858,
+      449.31525
+    ],
+    "latex": "1 m ∑ τ i ∈D tr ( ∏ H t =1 π ( a ( i ) t | x ( i ) t ) ∏ H t =1 π b ( a ( i ) t | x ( i ) t ) -f θ ( x ( i ) 1 , H ∑ t =1 r ( i ) t )) 2 .",
+    "image_path": "visuals/equations/equation_025.png",
+    "number": null,
+    "section_id": "sec-013",
+    "preceding_prose": "Therefore, given some function approximator f θ parametrized by θ , we can minimize over θ the following empirical risk:"
+  },
+  {
+    "id": "eq-026",
+    "page": 6,
+    "bbox": [
+      103.79207731051659,
+      446.62190887416,
+      249.000637445858,
+      476.83259631547224
+    ],
+    "latex": "π ( a | x ) = ϵ |A| +(1 -ϵ ) 1 { a = π ⋆ ( x ) } ,",
+    "image_path": "visuals/equations/equation_026.png",
+    "number": null,
+    "section_id": "sec-016",
+    "preceding_prose": "We evaluate our algorithms on the inventory problem [20], which can be modelled as an MDP with finite state and action spaces. We assume the behavior and target policies ( π, π b ) to be known, and to be ( ϵ, ϵ b ) -greedy with respect to the optimal policy π ⋆ . For example, for π , this means that for all ( x, a ) ,"
+  },
+  {
+    "id": "eq-027",
+    "page": 6,
+    "bbox": [
+      388.7683844396738,
+      477.06518887488664,
+      479.6545778082936,
+      502.08792765034997
+    ],
+    "latex": "s 0 ( x, y ) = ˆ q α lo ( x ) -y s ( x, y ) = y ˆ q ( x )",
+    "image_path": "visuals/equations/equation_027.png",
+    "number": null,
+    "section_id": "sec-018",
+    "preceding_prose": "We consider three different implementations of our algorithm: the first using the classical pinball score function [21], [24], the second using the double quantile method and finally the shifted values method with double quantile."
+  },
+  {
+    "id": "eq-028",
+    "page": 6,
+    "bbox": [
+      393.439086914,
+      469.85890838616,
+      482.42418053990565,
+      487.14401895935
+    ],
+    "latex": "1 -α hi ,",
+    "image_path": "visuals/equations/equation_028.png",
+    "number": null,
+    "section_id": "sec-018",
+    "preceding_prose": "We consider three different implementations of our algorithm: the first using the classical pinball score function [21], [24], the second using the double quantile method and finally the shifted values method with double quantile."
+  },
+  {
+    "id": "eq-029",
+    "page": 6,
+    "bbox": [
+      328.208667341637,
+      179.88666464191397,
+      542.9847064956244,
+      229.25102915770003
+    ],
+    "latex": "q π α ( x ) = Quantile α   ∑ y ∈I ( x ) w ( x, y ) ∑ y ′ ∈I ( x ) w ( x, y ′ ) δ y   ,",
+    "image_path": "visuals/equations/equation_029.png",
+    "number": null,
+    "section_id": "sec-019",
+    "preceding_prose": "We compare the conformal prediction method developed in this work to quantile estimation through importance sampling [4] with bootstrap. Importance sampling (IS) has been widely used as a variance reduction technique in statistical methods, but in our case it can be used to perform off-policy evaluation as in [19], [26]. However, compared to [19], [26] that try to estimate the mean value of the target policy π , we use the IS technique to estimate the ( α lo , α hi ) -quantiles of the value of π . The key insight is that q π α ( x ) , the α -quantile of π in x , can be estimated using the calibration data D cal and the likelihood ratio w ( x, y ) through the following expression"
+  },
+  {
+    "id": "eq-030",
+    "page": 7,
+    "bbox": [
+      122.4599967295618,
+      319.099251758536,
+      299.4682471457271,
+      332.5065920554648
+    ],
+    "latex": "ˆ C n ( x ) = [¯ q α lo ( x ) , ¯ q α hi ( x )] . (14)",
+    "image_path": "visuals/equations/equation_030.png",
+    "number": null,
+    "section_id": "sec-019",
+    "preceding_prose": "Horizon 40"
+  }
+]

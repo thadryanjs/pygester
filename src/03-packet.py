@@ -1,7 +1,9 @@
 """Stage 03: Compose context-packet.json, technical-summary.md, MANIFEST.md, and final deliverables."""
 
 import argparse
+import re
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 from common import read_json, write_json, setup_logging, ensure_dir
@@ -69,48 +71,59 @@ def build_context_packet(out_dir: Path) -> None:
 
 
 def write_technical_summary(out_dir: Path, packet: dict, manifest: dict, enrichment_on: bool) -> Path:
-    """Write minimal technical-summary.md to OUT_DIR."""
+    """Write technical-summary.md to OUT_DIR."""
     summary_path = out_dir / "technical-summary.md"
-    paper_md = out_dir / "paper.md"
-    equations = packet.get("equations", [])
+    profile = packet.get("paper_profile", {})
+    title = profile.get("title")
+    if not title or title == "Unknown":
+        title = "(title not detected)"
+    authors = profile.get("authors") or []
+    author_str = ", ".join(authors) if authors else "unknown"
+    sha = manifest.get("input_pdf_sha256", "")[:12]
+    timestamp = datetime.now(timezone.utc).isoformat()
 
     parts = [
-        "# Technical summary",
+        f"# Technical summary — {title}",
         "",
-        f"Source: {manifest.get('input_pdf', '')}",
+        f"Authors: {author_str}",
+        f"Source: {manifest.get('input_pdf', '')} (SHA {sha})",
+        f"Generated: {timestamp}",
         f"Formula enrichment: {str(enrichment_on).lower()}",
         "",
     ]
 
-    abstract = extract_abstract_from_markdown(paper_md)
+    abstract = find_abstract(packet, out_dir / "paper.md")
     if abstract:
         parts.extend(["## Abstract", "", abstract, ""])
 
     parts.extend(["## Equations", ""])
+    equations = packet.get("equations", [])
     if not equations:
-        parts.extend(["_No equations detected._", ""])
+        parts.extend(["_No equations detected in this document._", ""])
     else:
-        for i, eq in enumerate(equations, start=1):
-            page = eq.get("page", "?")
-            text = (eq.get("latex") or "").strip()
-            image_path = eq.get("image_path")
-
-            parts.append(f"### Equation {i} (p. {page})")
-            parts.append("")
-            if text:
-                fence = "$$" if enrichment_on else "```"
-                parts.extend([fence, text, fence, ""])
-            elif image_path:
-                parts.extend([f"![Equation {i}]({image_path})", ""])
-            else:
-                parts.extend(["_No formula text extracted._", ""])
+        parts.extend(render_equation_groups(equations, packet, enrichment_on))
 
     summary_path.write_text("\n".join(parts), encoding="utf-8")
     return summary_path
 
 
+def find_abstract(packet: dict, paper_md: Path) -> str | None:
+    """Return abstract text when available."""
+    for section in packet.get("sections", []):
+        if section.get("label") == "abstract":
+            return section.get("text", "").strip() or None
+
+    prose_blocks = packet.get("title_to_first_section_prose", [])
+    if prose_blocks:
+        text = "\n\n".join(b.strip() for b in prose_blocks if b.strip()).strip()
+        if text:
+            return text
+
+    return extract_abstract_from_markdown(paper_md)
+
+
 def extract_abstract_from_markdown(path: Path) -> str | None:
-    """Extract Abstract section from paper.md if present."""
+    """Fallback: extract Abstract section from paper.md if present."""
     if not path.exists():
         return None
 
@@ -131,6 +144,61 @@ def extract_abstract_from_markdown(path: Path) -> str | None:
 
     abstract = "\n".join(out).strip()
     return abstract or None
+
+
+def render_equation_groups(equations: list[dict], packet: dict, enrichment_on: bool) -> list[str]:
+    """Render equations grouped by section when section_id exists."""
+    out = []
+    prev_section_id = object()
+    sections_by_id = {s.get("id"): s for s in packet.get("sections", []) if s.get("id")}
+
+    for i, eq in enumerate(equations, start=1):
+        section_id = eq.get("section_id")
+        page = eq.get("page", "?")
+
+        if section_id != prev_section_id:
+            section = sections_by_id.get(section_id, {})
+            heading = section.get("heading") or "(unsectioned)"
+            out.extend([f"### From \"{heading}\" (p. {page})", ""])
+            prev_section_id = section_id
+
+        text = (eq.get("text") or eq.get("latex") or "").strip()
+        if text:
+            if enrichment_on:
+                out.extend(["$$", text, "$$"])
+            else:
+                out.extend(["```", text, "```"])
+        else:
+            image_path = eq.get("image_path")
+            if image_path:
+                out.append(f"![Equation {i}]({image_path})")
+            else:
+                out.append("_No formula text extracted._")
+
+        label = eq.get("number") or str(i)
+        context = extract_equation_context(eq)
+        if context:
+            out.append(f"*Equation ({label})* — {context}")
+        else:
+            out.append(f"*Equation ({label})*")
+        out.append("")
+
+    return out
+
+
+def extract_equation_context(eq: dict) -> str | None:
+    """Up to 25-word hint from prose preceding equation."""
+    prose = eq.get("preceding_prose", "")
+    if not prose:
+        return None
+    sentences = [s.strip() for s in re.split(r"[.!?]+", prose) if s.strip()]
+    if not sentences:
+        return None
+    last = sentences[-1]
+    words = last.split()
+    if len(words) > 25:
+        last = " ".join(words[:25]) + "…"
+    return last
 
 
 def write_manifest_md(out_dir: Path, eq_count: int) -> None:
@@ -163,8 +231,9 @@ Tool version: `{SKILL_VERSION}` · Run at: `{manifest.get("timestamp_utc", "")}`
 
 - **`paper.md`** — the paper as cleaned markdown. Section structure preserved.
   Math is {math_status}.
-- **`technical-summary.md`** — abstract + every detected equation.
-  Small math-focused digest for equation translation, derivation checks, and code generation.
+- **`technical-summary.md`** — abstract + every equation, grouped by section.
+  For math-focused chats: equation translation, derivation checks, code
+  generation. Smaller than `paper.md`, faster to paste.
 - **`context-packet.json`** — structured metadata: sections with page ranges,
   figures, tables, equations, references. The thing to paste alongside `paper.md`
   when an LLM needs to know what's on each page.
@@ -205,7 +274,8 @@ something's wrong.
 - Sections detected: {quality.get("section_count", 0)}
 - Figures detected: {quality.get("figure_count", 0)}
 - Tables detected: {quality.get("table_count", 0)}
-- Equations detected: {quality.get("equation_count", 0)}{" — no equations found in this document" if eq_count == 0 else " (in technical-summary.md)"}
+- Equations detected: {quality.get("equation_count", 0)}
+- Equations in technical summary: {eq_count}{" — no equations found in this document" if eq_count == 0 else ""}
 
 ## Quality gates
 
@@ -248,12 +318,26 @@ def packet(out_dir: Path) -> None:
     log.info(f"Wrote technical-summary.md ({summary_size:.1f} KB, {eq_count} equations)")
 
     # 3. Update quality report
-    has_equations = eq_count > 0
     summary_exists = summary_path.exists() and summary_path.stat().st_size > 0
+    summary_text = summary_path.read_text(encoding="utf-8") if summary_exists else ""
+    has_equation_blocks = ("$$" in summary_text) if enrichment_on else ("```" in summary_text)
+    abstract = find_abstract(packet, out_dir / "paper.md")
+
     quality = read_json(out_dir / "quality-report.json")
+    gates = quality.setdefault("gates", {})
+    gates["technical_summary_exists"] = summary_exists
+    gates["technical_summary_has_equations"] = has_equation_blocks
     quality["technical_summary_exists"] = summary_exists
-    quality["technical_summary_has_equations"] = has_equations
-    quality["equations_in_technical_summary"] = eq_count
+    quality["technical_summary_has_equations"] = has_equation_blocks
+    counts = quality.setdefault("counts", {})
+    counts["equations_in_technical_summary"] = eq_count
+    if eq_count != len(packet.get("equations", [])):
+        warnings = quality.setdefault("warnings", [])
+        warnings.append("equations_in_technical_summary does not match equations.json count")
+    if not abstract:
+        warnings = quality.setdefault("warnings", [])
+        if "abstract_not_found" not in warnings:
+            warnings.append("abstract_not_found")
     write_json(out_dir / "quality-report.json", quality)
     log.info("Wrote quality-report.json")
 

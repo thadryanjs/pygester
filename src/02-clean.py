@@ -281,14 +281,29 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
     """Extract equation info from parser JSON. Returns (equations, count)."""
     data = read_json(parser_json)
     texts = data.get("texts", [])
-    formulas = [t for t in texts if t.get("label") == "formula"]
     equations = []
     crops_written = 0
     crop_failures = 0
     ensure_dir(out_dir / "visuals" / "equations")
 
-    for i, fmt in enumerate(formulas, start=1):
-        prov = fmt.get("prov", [])
+    current_section_id = None
+    last_prose_text = ""
+    section_count = 0
+
+    for block in texts:
+        label = block.get("label")
+        if label == "section_header":
+            section_count += 1
+            current_section_id = f"sec-{section_count:03d}"
+            continue
+        if label in ("text", "paragraph"):
+            last_prose_text = block.get("text", "") or block.get("orig", "")
+            continue
+        if label != "formula":
+            continue
+
+        i = len(equations) + 1
+        prov = block.get("prov", [])
         if not prov:
             continue
         p = prov[0]
@@ -296,7 +311,7 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
         bbox = p.get("bbox", {})
 
         # Enriched LaTeX if available; raw formula text otherwise.
-        latex = fmt.get("text") or fmt.get("orig", "")
+        latex = block.get("text") or block.get("orig", "")
 
         eq_id = f"eq-{i:03d}"
         crop_filename = f"equation_{i:03d}.png"
@@ -333,6 +348,8 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
             "latex": latex,
             "image_path": image_path,
             "number": None,  # Docling doesn't provide equation numbers
+            "section_id": current_section_id,
+            "preceding_prose": last_prose_text,
         })
 
     if crop_failures > 0:
