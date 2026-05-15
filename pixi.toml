@@ -14,11 +14,11 @@ qc = { cmd = "bash src/qc-enrichment.sh $1", description = "Verify enrichment ou
 # Test: run Texify on equation crops for ground truth comparison
 test-texify = { cmd = "python tests/texify_test.py", description = "Run Texify inference on equation crops" }
 
-# Sync: pull runs from server storage to local
+# Sync: pull runs + slurm logs from server storage to local
 # Usage: pixi run local-pull-runs [SRC] [DEST]
 # Example: pixi run local-pull-runs user@server:/path/to/runs ./runs
 # Default: pulls from /mnt/Workspace/Pygester/runs/ to runs/
-local-pull-runs = { cmd = "sh -c 'rsync -avz --delete \"${SRC:-/mnt/Workspace/Pygester/runs/}\" \"${DEST:-runs/}\"'", description = "Pull runs from server storage to local" }
+local-pull-runs = { cmd = "sh -c 'rsync -avz --delete \"${SRC:-/mnt/Workspace/Pygester/runs/}\" \"${DEST:-runs/}\" && rsync -avz \"${LOGSRC:-/mnt/Workspace/Pygester/logs/}\" \"${LOGDEST:-logs/}\"'", description = "Pull runs and slurm logs from server storage to local" }
 
 watch = { cmd = [
     "watchexec", "-r",

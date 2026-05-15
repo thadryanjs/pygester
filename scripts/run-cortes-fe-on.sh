@@ -9,5 +9,4 @@ pixi run python src/process-pdf.py \
   'assets/Cortes-Gomez et al. - 2025 - Utility-Directed Conformal Prediction A Decision-Aware Framework for Actionable Uncertainty Quantif.pdf' \
   --out runs/slurm-cortes-true \
   --formula-enrichment "$FE_ENABLED" \
-  --code-enrichment false \
   --ocr false

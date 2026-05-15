@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/src/01-parse.py", line 9, in <module>
+    import fitz
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/.pixi/envs/default/lib/python3.12/site-packages/fitz/__init__.py", line 2, in <module>
+    from pymupdf import *
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/.pixi/envs/default/lib/python3.12/site-packages/pymupdf/__init__.py", line 33, in <module>
+    from . import extra
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/.pixi/envs/default/lib/python3.12/site-packages/pymupdf/extra.py", line 10, in <module>
+    from . import _extra
+ImportError: libgumbo.so.1: cannot open shared object file: No such file or directory
+[20:13:08] Running Stage 01...
+Traceback (most recent call last):
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/src/process-pdf.py", line 79, in <module>
+    main()
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/src/process-pdf.py", line 49, in main
+    subprocess.run(stage1_args, check=True)
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/.pixi/envs/default/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/.pixi/envs/default/bin/python', '/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/src/01-parse.py', 'assets/Mishmast Nehi et al. - 2020 - Solving methods for interval linear programming problem a review and an improved method.pdf', '--out', 'runs/slurm-mishmast-true', '--formula-enrichment', 'true', '--code-enrichment', 'false', '--ocr', 'false', '--dpi', '200']' returned non-zero exit status 1.

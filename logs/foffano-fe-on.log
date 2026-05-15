@@ -1,0 +1,37 @@
+[10:55:49] Stage 01 starting
+[10:55:49] Config: formula_enrichment=true, code_enrichment=false, ocr=false, dpi=200
+[10:55:49] Loading Docling
+[10:55:49] Loading complete (0.0s)
+[10:55:49] Parsing Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf
+[10:59:22] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/770 [00:00<?, ?it/s]Loading weights: 100%|██████████| 770/770 [00:00<00:00, 19031.54it/s]
+[10:59:26] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+[10:59:33] HTTP Request: GET https://huggingface.co/api/models/docling-project/CodeFormulaV2/revision/main "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/471 [00:00<?, ?it/s]Loading weights: 100%|██████████| 471/471 [00:00<00:00, 7974.38it/s]
+[transformers] The tied weights mapping and config for this model specifies to tie model.text_model.embed_tokens.weight to lm_head.weight, but both are present in the checkpoints with different values, so we will NOT tie them. You should update the config with `tie_word_embeddings=False` to silence this warning.
+[transformers] Passing `generation_config` together with generation-related arguments=({'use_cache', 'do_sample', 'max_new_tokens'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
+[13:17:55] Parse complete (8526.4s)
+[13:17:55] Rasterizing pages at 200 DPI
+[13:17:56] Rasterization complete (1.4s) — wrote 8 PNGs
+[13:17:56] Stage 01 done (8527.9s total)
+Exception ignored in: <function CodeFormulaVlmModel.__del__ at 0x1475c2d46c00>
+Traceback (most recent call last):
+  File "/dartfs-hpc/rc/home/c/f006fkc/Workspace/Pygester/.pixi/envs/default/lib/python3.12/site-packages/docling/models/stages/code_formula/code_formula_vlm_model.py", line 297, in __del__
+AttributeError: 'NoneType' object has no attribute 'warning'
+[13:18:29] Stage 02 starting
+[13:18:29] Walking Docling AST
+[13:18:30] Cropped 4 figures
+[13:18:32] Cropped 30 equations
+[13:18:32] Wrote 30 equations, 4 figures, 0 tables, 33 references
+[13:18:32] Wrote paper.md (58.7 KB)
+[13:18:32] Stage 02 done (3.2s total)
+[13:18:33] Stage 03 starting
+[13:18:33] Wrote context-packet.json (48.1 KB)
+[13:18:33] Wrote MANIFEST.md
+[13:18:33] Wrote quality-report.json
+[13:18:33] Stage 03 done (0.1s total)
+[10:55:46] Running Stage 01...
+[13:18:28] Running Stage 02...
+[13:18:33] Running Stage 03...
+[13:18:33] Total elapsed: 8566.9s
+[13:18:33] Pipeline complete

@@ -1,4 +1,4 @@
-"""Stage 03: Compose context-packet.json, MANIFEST.md, and final deliverables."""
+"""Stage 03: Compose context-packet.json, technical-summary.md, MANIFEST.md, and final deliverables."""
 
 import argparse
 import time
@@ -68,7 +68,72 @@ def build_context_packet(out_dir: Path) -> None:
     write_json(out_dir / "context-packet.json", packet)
 
 
-def write_manifest_md(out_dir: Path) -> None:
+def write_technical_summary(out_dir: Path, packet: dict, manifest: dict, enrichment_on: bool) -> Path:
+    """Write minimal technical-summary.md to OUT_DIR."""
+    summary_path = out_dir / "technical-summary.md"
+    paper_md = out_dir / "paper.md"
+    equations = packet.get("equations", [])
+
+    parts = [
+        "# Technical summary",
+        "",
+        f"Source: {manifest.get('input_pdf', '')}",
+        f"Formula enrichment: {str(enrichment_on).lower()}",
+        "",
+    ]
+
+    abstract = extract_abstract_from_markdown(paper_md)
+    if abstract:
+        parts.extend(["## Abstract", "", abstract, ""])
+
+    parts.extend(["## Equations", ""])
+    if not equations:
+        parts.extend(["_No equations detected._", ""])
+    else:
+        for i, eq in enumerate(equations, start=1):
+            page = eq.get("page", "?")
+            text = (eq.get("latex") or "").strip()
+            image_path = eq.get("image_path")
+
+            parts.append(f"### Equation {i} (p. {page})")
+            parts.append("")
+            if text:
+                fence = "$$" if enrichment_on else "```"
+                parts.extend([fence, text, fence, ""])
+            elif image_path:
+                parts.extend([f"![Equation {i}]({image_path})", ""])
+            else:
+                parts.extend(["_No formula text extracted._", ""])
+
+    summary_path.write_text("\n".join(parts), encoding="utf-8")
+    return summary_path
+
+
+def extract_abstract_from_markdown(path: Path) -> str | None:
+    """Extract Abstract section from paper.md if present."""
+    if not path.exists():
+        return None
+
+    lines = path.read_text(encoding="utf-8").splitlines()
+    start = None
+    for i, line in enumerate(lines):
+        if line.strip().lstrip("#").strip().lower() == "abstract":
+            start = i + 1
+            break
+    if start is None:
+        return None
+
+    out = []
+    for line in lines[start:]:
+        if line.startswith("#"):
+            break
+        out.append(line)
+
+    abstract = "\n".join(out).strip()
+    return abstract or None
+
+
+def write_manifest_md(out_dir: Path, eq_count: int) -> None:
     """Write human-readable MANIFEST.md."""
     debug = out_dir / "debug"
     manifest = read_json(debug / "run-manifest.json")
@@ -78,7 +143,7 @@ def write_manifest_md(out_dir: Path) -> None:
     parser = manifest.get("parser", {})
     config = parser.get("config", {})
 
-    math_status = "LaTeX" if config.get("do_formula_enrichment") else "Unicode soup"
+    math_status = "LaTeX" if config.get("do_formula_enrichment") else "Unicode (formula enrichment off)"
     code_status = "cleaned" if config.get("do_code_enrichment") else "raw text"
     ocr_status = "ran" if config.get("do_ocr") else "skipped; PDF had usable text layer"
 
@@ -97,7 +162,9 @@ Tool version: `{SKILL_VERSION}` · Run at: `{manifest.get("timestamp_utc", "")}`
 ### Deliverables (the things you probably want)
 
 - **`paper.md`** — the paper as cleaned markdown. Section structure preserved.
-  Math is {math_status} depending on whether formula enrichment was on.
+  Math is {math_status}.
+- **`technical-summary.md`** — abstract + every detected equation.
+  Small math-focused digest for equation translation, derivation checks, and code generation.
 - **`context-packet.json`** — structured metadata: sections with page ranges,
   figures, tables, equations, references. The thing to paste alongside `paper.md`
   when an LLM needs to know what's on each page.
@@ -138,7 +205,7 @@ something's wrong.
 - Sections detected: {quality.get("section_count", 0)}
 - Figures detected: {quality.get("figure_count", 0)}
 - Tables detected: {quality.get("table_count", 0)}
-- Equations detected: {quality.get("equation_count", 0)}
+- Equations detected: {quality.get("equation_count", 0)}{" — no equations found in this document" if eq_count == 0 else " (in technical-summary.md)"}
 
 ## Quality gates
 
@@ -163,18 +230,38 @@ def packet(out_dir: Path) -> None:
 
     log.info("Stage 03 starting")
 
+    debug = out_dir / "debug"
+    manifest = read_json(debug / "run-manifest.json")
+    flags = manifest.get("flags", {})
+    enrichment_on = flags.get("formula_enrichment", "false") == "true"
+
+    # 1. Build context packet
     build_context_packet(out_dir)
+    packet = read_json(out_dir / "context-packet.json")
     cp_size = (out_dir / "context-packet.json").stat().st_size / 1024
     log.info(f"Wrote context-packet.json ({cp_size:.1f} KB)")
 
-    write_manifest_md(out_dir)
-    log.info("Wrote MANIFEST.md")
+    # 2. Write technical summary
+    eq_count = len(packet.get("equations", []))
+    summary_path = write_technical_summary(out_dir, packet, manifest, enrichment_on)
+    summary_size = summary_path.stat().st_size / 1024
+    log.info(f"Wrote technical-summary.md ({summary_size:.1f} KB, {eq_count} equations)")
 
+    # 3. Update quality report
+    has_equations = eq_count > 0
+    summary_exists = summary_path.exists() and summary_path.stat().st_size > 0
+    quality = read_json(out_dir / "quality-report.json")
+    quality["technical_summary_exists"] = summary_exists
+    quality["technical_summary_has_equations"] = has_equations
+    quality["equations_in_technical_summary"] = eq_count
+    write_json(out_dir / "quality-report.json", quality)
     log.info("Wrote quality-report.json")
 
+    # 4. Write manifest
+    write_manifest_md(out_dir, eq_count)
+    log.info("Wrote MANIFEST.md")
+
     # Update manifest
-    debug = out_dir / "debug"
-    manifest = read_json(debug / "run-manifest.json")
     manifest["stages_completed"] = ["01-parse", "02-clean", "03-packet"]
     write_json(debug / "run-manifest.json", manifest)
 

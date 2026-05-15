@@ -1,0 +1,7 @@
+[08:48:59] Stage 01 starting
+[08:48:59] Config: formula_enrichment=false, ocr=false, dpi=200, max_pages=None
+[08:48:59] Loading Docling
+[08:48:59] Loading complete (0.0s)
+[08:48:59] Parsing Foffano et al. - 2023 - Conformal Off-Policy Evaluation in Markov Decision Processes.pdf
+[08:49:06] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+[08:49:06] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"

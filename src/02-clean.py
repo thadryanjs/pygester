@@ -123,6 +123,8 @@ def extract_figures(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: Pat
     crops_written = 0
     crop_failures = 0
 
+    ensure_dir(out_dir / "visuals" / "figures")
+
     for i, pic in enumerate(pictures, start=1):
         prov = pic.get("prov", [])
         if not prov:
@@ -219,6 +221,8 @@ def extract_code_blocks(parser_json: Path, pages_dir: Path, dpi: int, debug_dir:
     crops_written = 0
     crop_failures = 0
 
+    ensure_dir(out_dir / "visuals" / "code")
+
     for i, block in enumerate(code_blocks, start=1):
         prov = block.get("prov", [])
         if not prov:
@@ -281,6 +285,7 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
     equations = []
     crops_written = 0
     crop_failures = 0
+    ensure_dir(out_dir / "visuals" / "equations")
 
     for i, fmt in enumerate(formulas, start=1):
         prov = fmt.get("prov", [])
@@ -290,8 +295,8 @@ def extract_equations(parser_json: Path, pages_dir: Path, dpi: int, debug_dir: P
         page_no = p.get("page_no", 1)
         bbox = p.get("bbox", {})
 
-        # Get LaTeX from enriched text, fallback to orig
-        latex = fmt.get("text", fmt.get("orig", ""))
+        # Enriched LaTeX if available; raw formula text otherwise.
+        latex = fmt.get("text") or fmt.get("orig", "")
 
         eq_id = f"eq-{i:03d}"
         crop_filename = f"equation_{i:03d}.png"

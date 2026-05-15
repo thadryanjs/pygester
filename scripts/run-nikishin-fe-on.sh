@@ -9,5 +9,4 @@ pixi run python src/process-pdf.py \
   'assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf' \
   --out runs/slurm-nikishin-true \
   --formula-enrichment "$FE_ENABLED" \
-  --code-enrichment false \
   --ocr false
