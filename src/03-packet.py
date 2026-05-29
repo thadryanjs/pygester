@@ -18,7 +18,7 @@ def build_context_packet(out_dir: Path) -> None:
     quality = read_json(out_dir / "quality-report.json")
 
     # Load sidecars (visuals and structured data are in core output)
-    sections = read_json(debug / "intermediate" / "text" / "sections.json") if (debug / "intermediate" / "text" / "sections.json").exists() else []
+    sections = read_json(debug / "sections.json") if (debug / "sections.json").exists() else []
 
     figures = []
     if (out_dir / "visuals" / "figures" / "figures.json").exists():
@@ -305,9 +305,8 @@ something's wrong.
   per-stage timing.
 - `debug/parser/raw_output.{{json,md}}` — what Docling produced before our post-
   processing. Compare against `paper.md` to see what Stage 02 changed.
-- `debug/text/plaintext.txt` — canonical text without markdown formatting.
-- `debug/text/sections.json` — section tree (already in context-packet).
-- `debug/text/provenance.json` — char-offset → page/bbox map.
+- `paper-text.md` — canonical text without markdown formatting.
+- `debug/sections.json` — section tree (already in context-packet).
 - `debug/markdown/` — intermediate snapshots from Stage 02 post-processing.
 - `debug/{{figures,tables,equations,references}}/` — structured artifacts
   that get rolled into `context-packet.json`.

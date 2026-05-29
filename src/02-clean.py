@@ -448,8 +448,6 @@ def clean(out_dir: Path) -> None:
     normalized = normalize_text(markdown)
     with_frontmatter = add_frontmatter(normalized, manifest)
 
-    markdown_dir = ensure_dir(debug / "intermediate" / "markdown")
-    (markdown_dir / "01-with-frontmatter.md").write_text(with_frontmatter, encoding="utf-8")
     (out_dir / "paper.md").write_text(with_frontmatter, encoding="utf-8")
 
     log.info("Walking Docling AST")
@@ -470,10 +468,9 @@ def clean(out_dir: Path) -> None:
 
     log.info(f"Wrote {eq_count} equations, {fig_count} figures, {tbl_count} tables, {ref_count} references")
 
-    # Write sidecars only if non-empty
-    text_dir = ensure_dir(debug / "intermediate" / "text")
-    write_json(text_dir / "sections.json", sections)
-    (text_dir / "plaintext.txt").write_text(normalized, encoding="utf-8")
+    # Write sidecars
+    write_json(debug / "sections.json", sections)
+    (out_dir / "paper-text.md").write_text(normalized, encoding="utf-8")
 
     if figures:
         figures_dir = ensure_dir(out_dir / "visuals" / "figures")

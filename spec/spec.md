@@ -100,19 +100,17 @@ OUT_DIR/
 │   └── tables.json
 ├── references/               # extracted references (when present)
 │   └── references.json
+├── paper-text.md             # cleaned canonical text (no markdown)
 └── debug/                    # intermediate artifacts
     ├── original.pdf          # verbatim copy of input
     ├── run-manifest.json     # config, flags, hashes, timestamps
     ├── run.log               # pipeline log
+    ├── sections.json         # section tree (already in context-packet)
     ├── parser/
     │   ├── raw_output.json   # Docling DoclingDocument as JSON (large)
     │   └── raw_output.md     # Docling markdown export, pre-cleanup
-    └── intermediate/
-        ├── text/
-        │   ├── plaintext.txt # cleaned canonical text
-        │   └── sections.json # section tree (already in context-packet)
-        └── markdown/         # intermediate snapshots from Stage 02 post-processing
-            └── 01-with-frontmatter.md …
+    └── markdown/             # intermediate snapshots from Stage 02 post-processing
+        └── 01-with-frontmatter.md …
 ```
 
 Deliverables (the top of `OUT_DIR/`) use kebab-case. Debug files keep snake_case (Docling convention).
@@ -158,9 +156,9 @@ something's wrong.
   per-stage timing.
 - `debug/parser/raw_output.{json,md}` — what Docling produced before our post-
   processing. Compare against `paper.md` to see what Stage 02 changed.
-- `debug/intermediate/text/plaintext.txt` — canonical text without markdown formatting.
+- `paper-text.md` — canonical text without markdown formatting.
   Redundant with `paper.md` for most uses.
-- `debug/intermediate/markdown/` — intermediate snapshots from the markdown post-processing
+- `debug/markdown/` — intermediate snapshots from the markdown post-processing
   chain. `01-with-frontmatter.md` is what `paper.md` looks like after only
   the first post-processing step, and so on.
 
