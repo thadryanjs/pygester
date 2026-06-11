@@ -3,7 +3,7 @@ title: Docling Extract
 source_sha256: cc68c21c6ba031690aa7b6537789944a7477b317de748b3b7c13be8ced031942
 parser: docling 2.96.0
 tool_version: 0.1.0
-run_at: 2026-06-11T15:54:39.698016+00:00
+run_at: 2026-06-11T15:59:54.302004+00:00
 formula_enrichment: false
 ocr: false
 ---

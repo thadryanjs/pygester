@@ -3,7 +3,7 @@
 This directory contains the output of `digest-technical-paper` processing
 `assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf`.
 
-Tool version: `0.1.0` · Run at: `2026-06-11T15:54:39.698016+00:00` · Flags: `--formula-enrichment false --code-enrichment off --ocr false`
+Tool version: `0.1.0` · Run at: `2026-06-11T15:59:54.302004+00:00` · Flags: `--formula-enrichment false --code-enrichment off --ocr false`
 
 ## What's in here
 

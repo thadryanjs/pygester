@@ -2,7 +2,7 @@
 
 Authors: Evgenii Nikishin, 1 Romina Abachi, 2 Rishabh Agarwal, 1 3 Pierre-Luc Bacon 1 4, 1 Mila, Universit´ e de Montr´ eal, 2 Vector Institute, University of Toronto 3 Google Research, Brain Team, 4 Facebook CIFAR AI Chair evgenii.nikishin@mila.quebec
 Source: assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf (SHA cc68c21c6ba0)
-Generated: 2026-06-11T15:54:40.354481+00:00
+Generated: 2026-06-11T15:59:54.903623+00:00
 Formula enrichment: false
 
 ## Abstract
