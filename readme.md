@@ -76,11 +76,19 @@ We do not know if this consistently produces better AI-assisted research than pa
 ## Pipeline (for contributors)
 
 ```
-PDF → Docling parse → normalize → context packet
-              ↘ PyMuPDF rasterize pagess
+PDF → parse → clean → packet
+         ↘ PyMuPDF rasterize pages
 ```
 
-The interesting code is in `src/02-clean.py` and `src/03-packet.py` — that's where parser quirks get fixed. Docling does the heavy lifting; we clean up after it.
+Stages run in order:
+
+1. **`src/parse.py`** — Docling extracts the PDF; PyMuPDF rasterizes pages. Writes raw Docling output + page PNGs.
+2. **`src/clean.py`** — normalize markdown (ligatures, hyphenation), extract figures/tables/equations/references with crops + sidecar JSON.
+3. **`src/packet.py`** — compose `context-packet.json`, `technical-summary.md`, `MANIFEST.md`.
+
+`src/process-pdf.py` orchestrates by importing and calling each stage function. Each stage is also runnable standalone via its own CLI for debugging.
+
+The interesting code is in `src/clean.py` and `src/packet.py` — that's where parser quirks get fixed. Docling does the heavy lifting; we clean up after it.
 
 Detailed schemas, contracts, and stage-by-stage behavior live in [`spec/spec.md`](spec/spec.md). This README is the user-facing overview; the spec is what you read if you're building or modifying the tool.
 

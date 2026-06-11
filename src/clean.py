@@ -1,4 +1,4 @@
-"""Stage 02: Clean Docling output → paper.md + structured sidecars."""
+"""clean stage: Clean Docling output → paper.md + structured sidecars."""
 
 import argparse
 import logging
@@ -430,11 +430,11 @@ def write_quality_report(out_dir: Path, manifest: dict, counts: dict) -> None:
 
 
 def clean(out_dir: Path) -> None:
-    """Run Stage 02: clean and produce artifacts."""
+    """Run clean stage: produce artifacts."""
     log = setup_logging(out_dir)
     t0_total = time.monotonic()
 
-    log.info("Stage 02 starting")
+    log.info("clean stage starting")
     debug = out_dir / "debug"
     parser_dir = debug / "parser"
     pages_dir = out_dir / "pages"
@@ -487,18 +487,18 @@ def clean(out_dir: Path) -> None:
         references_dir = ensure_dir(out_dir / "references")
         write_json(references_dir / "references.json", references)
 
-    manifest["stages_completed"] = ["01-parse", "02-clean"]
+    manifest["stages_completed"] = ["parse", "clean"]
     write_json(debug / "run-manifest.json", manifest)
 
     write_quality_report(out_dir, manifest, counts)
 
     md_size = (out_dir / "paper.md").stat().st_size / 1024
     log.info(f"Wrote paper.md ({md_size:.1f} KB)")
-    log.info(f"Stage 02 done ({time.monotonic() - t0_total:.1f}s total)")
+    log.info(f"clean stage done ({time.monotonic() - t0_total:.1f}s total)")
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Stage 02: Clean output")
+    p = argparse.ArgumentParser(description="clean stage: Clean output")
     p.add_argument("--out", type=Path, required=True)
     args = p.parse_args()
 

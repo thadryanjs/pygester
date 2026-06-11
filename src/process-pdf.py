@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Run all stages: 01-parse → 02-clean → 03-packet."""
+"""Run all stages: parse → clean → packet."""
 
 import argparse
-import subprocess
-import sys
 import time
 from pathlib import Path
+
+from parse import parse_pdf
+from clean import clean
+from packet import packet
 
 
 def main() -> None:
@@ -19,53 +21,37 @@ def main() -> None:
     args = p.parse_args()
 
     t0_total = time.monotonic()
-    scripts_dir = Path(__file__).parent
     out_dir = args.out
 
-    # Ensure output directory exists
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Stage 01
+    # Stage: parse
     if not (out_dir / "debug" / "parser" / "raw_output.json").exists():
-        print(f"[{time.strftime('%H:%M:%S')}] Running Stage 01...")
-        stage1_args = [
-            sys.executable,
-            str(scripts_dir / "01-parse.py"),
-            str(args.pdf),
-            "--out",
-            str(args.out),
-            "--formula-enrichment",
-            args.formula_enrichment,
-            "--ocr",
-            args.ocr,
-            "--dpi",
-            str(args.dpi),
-        ]
-        if args.max_pages is not None:
-            stage1_args.extend(["--max-pages", str(args.max_pages)])
-        subprocess.run(stage1_args, check=True)
+        print(f"[{time.strftime('%H:%M:%S')}] Running parse...")
+        parse_pdf(
+            args.pdf,
+            args.out,
+            formula_enrichment=args.formula_enrichment,
+            ocr=args.ocr,
+            max_pages=args.max_pages,
+            dpi=args.dpi,
+        )
     else:
-        print(f"[{time.strftime('%H:%M:%S')}] Stage 01 complete, skipping")
+        print(f"[{time.strftime('%H:%M:%S')}] parse complete, skipping")
 
-    # Stage 02
+    # Stage: clean
     if not (out_dir / "paper.md").exists():
-        print(f"[{time.strftime('%H:%M:%S')}] Running Stage 02...")
-        subprocess.run(
-            [sys.executable, str(scripts_dir / "02-clean.py"), "--out", str(args.out)],
-            check=True,
-        )
+        print(f"[{time.strftime('%H:%M:%S')}] Running clean...")
+        clean(args.out)
     else:
-        print(f"[{time.strftime('%H:%M:%S')}] Stage 02 complete, skipping")
+        print(f"[{time.strftime('%H:%M:%S')}] clean complete, skipping")
 
-    # Stage 03
+    # Stage: packet
     if not (out_dir / "context-packet.json").exists():
-        print(f"[{time.strftime('%H:%M:%S')}] Running Stage 03...")
-        subprocess.run(
-            [sys.executable, str(scripts_dir / "03-packet.py"), "--out", str(args.out)],
-            check=True,
-        )
+        print(f"[{time.strftime('%H:%M:%S')}] Running packet...")
+        packet(args.out)
     else:
-        print(f"[{time.strftime('%H:%M:%S')}] Stage 03 complete, skipping")
+        print(f"[{time.strftime('%H:%M:%S')}] packet complete, skipping")
 
     elapsed = time.monotonic() - t0_total
     print(f"[{time.strftime('%H:%M:%S')}] Total elapsed: {elapsed:.1f}s")

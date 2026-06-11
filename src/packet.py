@@ -1,4 +1,4 @@
-"""Stage 03: Compose context-packet.json, technical-summary.md, MANIFEST.md, and final deliverables."""
+"""packet stage: Compose context-packet.json, technical-summary.md, MANIFEST.md, and final deliverables."""
 
 import argparse
 import re
@@ -304,10 +304,10 @@ something's wrong.
 - `debug/run-manifest.json` — full config: every flag, parser version, hashes,
   per-stage timing.
 - `debug/parser/raw_output.{{json,md}}` — what Docling produced before our post-
-  processing. Compare against `paper.md` to see what Stage 02 changed.
+  processing. Compare against `paper.md` to see what the clean stage changed.
 - `paper-text.md` — canonical text without markdown formatting.
 - `debug/sections.json` — section tree (already in context-packet).
-- `debug/markdown/` — intermediate snapshots from Stage 02 post-processing.
+- `debug/markdown/` — intermediate snapshots from clean-stage post-processing.
 - `debug/{{figures,tables,equations,references}}/` — structured artifacts
   that get rolled into `context-packet.json`.
 
@@ -331,9 +331,9 @@ something's wrong.
 ## Reproducing this run
 
 ```bash
-python src/01-parse.py "{manifest.get("input_pdf", "")}" --out <OUT_DIR> --formula-enrichment {flags.get("formula_enrichment", "false")} --code-enrichment {flags.get("code_enrichment", "false")} --ocr {flags.get("ocr", "false")}
-python src/02-clean.py --out <OUT_DIR>
-python src/03-packet.py --out <OUT_DIR>
+python src/parse.py "{manifest.get("input_pdf", "")}" --out <OUT_DIR> --formula-enrichment {flags.get("formula_enrichment", "false")} --code-enrichment {flags.get("code_enrichment", "false")} --ocr {flags.get("ocr", "false")}
+python src/clean.py --out <OUT_DIR>
+python src/packet.py --out <OUT_DIR>
 ```
 """
 
@@ -341,11 +341,11 @@ python src/03-packet.py --out <OUT_DIR>
 
 
 def packet(out_dir: Path) -> None:
-    """Run Stage 03."""
+    """Run packet stage."""
     log = setup_logging(out_dir)
     t0_total = time.monotonic()
 
-    log.info("Stage 03 starting")
+    log.info("packet stage starting")
 
     debug = out_dir / "debug"
     manifest = read_json(debug / "run-manifest.json")
@@ -393,14 +393,14 @@ def packet(out_dir: Path) -> None:
     log.info("Wrote MANIFEST.md")
 
     # Update manifest
-    manifest["stages_completed"] = ["01-parse", "02-clean", "03-packet"]
+    manifest["stages_completed"] = ["parse", "clean", "packet"]
     write_json(debug / "run-manifest.json", manifest)
 
-    log.info(f"Stage 03 done ({time.monotonic() - t0_total:.1f}s total)")
+    log.info(f"packet stage done ({time.monotonic() - t0_total:.1f}s total)")
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Stage 03: Build packet")
+    p = argparse.ArgumentParser(description="packet stage: Build packet")
     p.add_argument("--out", type=Path, required=True)
     args = p.parse_args()
 

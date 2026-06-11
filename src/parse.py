@@ -1,4 +1,4 @@
-"""Stage 01: Parse PDF with Docling + rasterize pages."""
+"""parse stage: Parse PDF with Docling + rasterize pages."""
 
 import argparse
 import shutil
@@ -29,7 +29,7 @@ def parse_pdf(
     log = setup_logging(out_dir)
     t0_total = time.monotonic()
 
-    log.info("Stage 01 starting")
+    log.info("parse stage starting")
     log.info(f"Config: formula_enrichment={formula_enrichment}, ocr={ocr}, dpi={dpi}, max_pages={max_pages}")
 
     debug = ensure_dir(out_dir / "debug")
@@ -100,15 +100,15 @@ def parse_pdf(
         },
         "page_count": page_count,
         "dpi": dpi,
-        "stages_completed": ["01-parse"],
+        "stages_completed": ["parse"],
     }
     write_json(manifest_path, manifest)
 
-    log.info(f"Stage 01 done ({time.monotonic() - t0_total:.1f}s total)")
+    log.info(f"parse stage done ({time.monotonic() - t0_total:.1f}s total)")
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Stage 01: Parse PDF")
+    p = argparse.ArgumentParser(description="parse stage: Parse PDF")
     p.add_argument("pdf", type=Path)
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--formula-enrichment", choices=["true", "false"], default="false")

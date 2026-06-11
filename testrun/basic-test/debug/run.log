@@ -1,24 +1,24 @@
-[10:40:07] Stage 01 starting
-[10:40:07] Config: formula_enrichment=false, ocr=false, dpi=200, max_pages=5
-[10:40:07] Loading Docling
-[10:40:07] Loading complete (0.0s)
-[10:40:07] Parsing Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf
-[10:40:13] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
-[10:40:14] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
-[10:40:27] Parse complete (19.1s)
-[10:40:27] Rasterizing pages at 200 DPI
-[10:40:27] Rasterization complete (0.7s) — wrote 5 PNGs
-[10:40:27] Stage 01 done (19.9s total)
-[10:40:28] Stage 02 starting
-[10:40:28] Walking Docling AST
-[10:40:28] Cropped 3 figures
-[10:40:29] Cropped 18 equations
-[10:40:29] Wrote 19 equations, 7 figures, 1 tables, 0 references
-[10:40:29] Wrote paper.md (39.5 KB)
-[10:40:29] Stage 02 done (0.6s total)
-[10:40:29] Stage 03 starting
-[10:40:29] Wrote context-packet.json (19.8 KB)
-[10:40:29] Wrote technical-summary.md (6.0 KB, 19 equations)
-[10:40:29] Wrote quality-report.json
-[10:40:29] Wrote MANIFEST.md
-[10:40:29] Stage 03 done (0.0s total)
+[11:54:18] parse stage starting
+[11:54:18] Config: formula_enrichment=false, ocr=false, dpi=200, max_pages=5
+[11:54:18] Loading Docling
+[11:54:18] Loading complete (0.0s)
+[11:54:18] Parsing Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf
+[11:54:24] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-layout-heron/revision/main "HTTP/1.1 200 OK"
+[11:54:25] HTTP Request: GET https://huggingface.co/api/models/docling-project/docling-models/revision/v2.3.0 "HTTP/1.1 200 OK"
+[11:54:38] Parse complete (20.1s)
+[11:54:38] Rasterizing pages at 200 DPI
+[11:54:39] Rasterization complete (0.7s) — wrote 5 PNGs
+[11:54:39] parse stage done (20.8s total)
+[11:54:39] clean stage starting
+[11:54:39] Walking Docling AST
+[11:54:39] Cropped 3 figures
+[11:54:40] Cropped 18 equations
+[11:54:40] Wrote 19 equations, 7 figures, 1 tables, 0 references
+[11:54:40] Wrote paper.md (39.5 KB)
+[11:54:40] clean stage done (0.6s total)
+[11:54:40] packet stage starting
+[11:54:40] Wrote context-packet.json (19.8 KB)
+[11:54:40] Wrote technical-summary.md (6.0 KB, 19 equations)
+[11:54:40] Wrote quality-report.json
+[11:54:40] Wrote MANIFEST.md
+[11:54:40] packet stage done (0.0s total)

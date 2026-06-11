@@ -3,7 +3,7 @@
 This directory contains the output of `digest-technical-paper` processing
 `assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf`.
 
-Tool version: `0.1.0` · Run at: `2026-06-04T14:40:27.761706+00:00` · Flags: `--formula-enrichment false --code-enrichment off --ocr false`
+Tool version: `0.1.0` · Run at: `2026-06-11T15:54:39.698016+00:00` · Flags: `--formula-enrichment false --code-enrichment off --ocr false`
 
 ## What's in here
 
@@ -36,10 +36,10 @@ something's wrong.
 - `debug/run-manifest.json` — full config: every flag, parser version, hashes,
   per-stage timing.
 - `debug/parser/raw_output.{json,md}` — what Docling produced before our post-
-  processing. Compare against `paper.md` to see what Stage 02 changed.
+  processing. Compare against `paper.md` to see what the clean stage changed.
 - `paper-text.md` — canonical text without markdown formatting.
 - `debug/sections.json` — section tree (already in context-packet).
-- `debug/markdown/` — intermediate snapshots from Stage 02 post-processing.
+- `debug/markdown/` — intermediate snapshots from clean-stage post-processing.
 - `debug/{figures,tables,equations,references}/` — structured artifacts
   that get rolled into `context-packet.json`.
 
@@ -67,7 +67,7 @@ something's wrong.
 ## Reproducing this run
 
 ```bash
-python src/01-parse.py "assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf" --out <OUT_DIR> --formula-enrichment false --code-enrichment false --ocr false
-python src/02-clean.py --out <OUT_DIR>
-python src/03-packet.py --out <OUT_DIR>
+python src/parse.py "assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf" --out <OUT_DIR> --formula-enrichment false --code-enrichment false --ocr false
+python src/clean.py --out <OUT_DIR>
+python src/packet.py --out <OUT_DIR>
 ```

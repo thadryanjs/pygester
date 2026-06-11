@@ -37,7 +37,7 @@ clean:
     rm -rf testrun run-foffano run-cortes runs
 
 # Test minimal pipeline: parse only, no enrichment (fast)
-local-basic-test pdf='assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf':
+local-test-basic pdf='assets/Nikishin et al. - 2022 - Control-Oriented Model-Based Reinforcement Learning with Implicit Differentiation.pdf':
     uv run python src/process-pdf.py '{{pdf}}' \
       --out testrun/basic-test \
       --formula-enrichment false \
