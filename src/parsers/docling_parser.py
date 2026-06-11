@@ -35,8 +35,6 @@ class DoclingParser:
             ) from exc
 
         pipeline_options = PdfPipelineOptions()
-        if sys.platform == "darwin":
-            pipeline_options.device = "cpu"
         pipeline_options.do_ocr = do_ocr
         pipeline_options.do_formula_enrichment = do_formula_enrichment
         # Note: Docling doesn't have do_code_enrichment; table_structure defaults to True
