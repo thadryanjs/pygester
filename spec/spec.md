@@ -10,11 +10,12 @@ This tool prepares a scientific paper (PDF) for AI-assisted analysis by producin
 
 ## Pipeline Stages
 
-### Stage 01 — Parse
+### parse
 Extracts raw content and rasterizes pages.
 - **Inputs**: PDF file.
 - **Process**:
     - Invokes Docling to produce a structured JSON representation of the document.
+    - On macOS (Darwin), forces CPU execution to avoid MPS float64 incompatibility.
     - Rasterizes all pages to PNGs at a specified DPI (default 200).
 - **Outputs**:
     - `debug/original.pdf`: Copy of source.
@@ -23,7 +24,7 @@ Extracts raw content and rasterizes pages.
     - `pages/page_NNNN.png`: Full-page rasters.
     - `debug/run-manifest.json`: Detailed run provenance.
 
-### Stage 02 — Clean & Extract
+### clean
 Processes the raw output into clean markdown and visual crops.
 - **Inputs**: `raw_output.json`, `raw_output.md`, page PNGs.
 - **Process**:
@@ -45,9 +46,9 @@ Processes the raw output into clean markdown and visual crops.
     - `references/references.json`: Extracted references.
     - `debug/intermediate/`: Intermediate text and provenance files.
 
-### Stage 03 — Packet
+### packet
 Composes the final handoff bundle.
-- **Inputs**: Artifacts from Stages 01 and 02.
+- **Inputs**: Artifacts from parse and clean stages.
 - **Process**:
     - **Context Packet**: Aggregates all structured data into `context-packet.json`.
     - **Technical Summary**: Produces `technical-summary.md` containing the abstract and all equations grouped by section (using LaTeX if enrichment is on).
